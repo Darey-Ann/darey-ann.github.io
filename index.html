@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Darey-Ann Louisville　| ルイヴィルデリーアン</title>
+  <title>Darey-Ann Louisville  |  ルイヴィルデリーアン</title>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  
+  <nav style="position: sticky; top: 0; background: #1e1e1e; padding: 10px;">
+  <a href="#about">About</a> | <a href="#projects">Projects</a> | <a href="#art">Art</a>
+</nav>
   
   <!-- CSS Styles -->
   <style>
@@ -182,7 +186,7 @@
   <main>
     <!-- About Section -->
     <section class="about">
-      <h3>About</h3>
+      <h3 id="about">About</h3>
       <p>こんにちは！I’m Darey-Ann, a graduate student at the University of Tokyo.</p>
       <p>I'm originally from Suriname, South-America, and came to Japan on the Japanese Government (MEXT) Scholarship in 2022.</p>
       <p>I'm interested in art, technology, and creative coding. Check out some of my projects below.</p>
@@ -204,13 +208,14 @@
    
 
     <section class="projects">
-      <h2>Projects</h2>
+      <h2 id="projects">Projects</h2>
         <!-- Project 1 -->
         <section>
           <h4>Champloo: A p5.js Collage App</h4>
           <img src="champloo.gif" alt="Champloo GIF">
           <p>A standalone p5.js collage application, created for the University of Tokyo's 2024 iii Exhibition. </p>
           <p> See more details on <a href="https://github.com/Darey-Ann/Champloo" target="_blank"> my GitHub page</a>.</p>
+          <p> Double-click to start!</p>
           <iframe 
             src="https://editor.p5js.org/darey-ann/full/-zAQ39d3Z" 
             allowfullscreen>
@@ -247,7 +252,7 @@
     <!-- Main Content -->
   <main>
     <section class="art">
-     <h2>Art</h2>
+     <h2 id="art">Art</h2>
      <p>I like digital and traditional art as well. Here are some of my more recent pieces.</p>
      <div class="art-gallery">
        <!-- Art Images -->
@@ -304,4 +309,11 @@
 
 
 </body>
+
+<footer style="background-color: #1e1e1e; color: #e0e0e0; text-align: center; padding: 20px;">
+  <p>Created by Darey-Ann Louisville | 2024</p>
+  <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> | 
+  <a href="https://github.com/Darey-Ann" target="_blank">GitHub</a>
+</footer>
+
 </html>
