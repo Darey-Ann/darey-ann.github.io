@@ -7,7 +7,8 @@
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
   <nav style="position: sticky; top: 0; background: #1e1e1e; padding: 10px;">
   <a href="#about">About</a> | <a href="#projects">Projects</a> | <a href="#art">Art</a>
 </nav>
@@ -30,7 +31,11 @@
       scroll-behavior: smooth; /* Smooth scrolling for the entire site */
     }
     body {
-      font-family: 'Roboto', sans-serif;
+      /*font-family: 'Roboto', sans-serif;*/
+      font-family: 'Inter', sans-serif;
+      font-weight: 300; /* Makes it lighter */
+      /*font-size: 20px; /* Adjust size (0.7em means 70% of the main text) */
+      letter-spacing: 0.5px; /* Slight spacing for a refined look */
       margin: 0;
       padding: 0;
       background-color: #121212; /* Dark theme background */
@@ -38,34 +43,61 @@
     }
     header {
       /* background-color: #1e1e1e;  Darker header background */
-      color: #bb86fc; /* Accent color */
+      color: #d8b9ff; /* Accent color */
       padding: 20px;
       text-align: center;
     }
-    header h1 {
-      font-family: 'Playfair Display', serif;
+    header h1 { /* not used? */
+      /*font-family: 'Playfair Display', serif; */
+      font-family: 'Inter', sans-serif;
+      /*font-size: 3em;*/
+      font-weight: 800; /* Makes it lighter */
+      letter-spacing: 1.5px; /* Slight spacing for a refined look */
       margin: 0;
+    }
+    
+    .subheader {
+    font-size: 0.7em; /* Adjust size (0.7em means 70% of the main text) */
+    font-weight: 100; /* Lighter weight */
+    display: block; /* Ensures it stays on a new line */
+    margin-top: 0.5px; /* Add a bit of space */
     }
     main {
       padding: 20px;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
     section {
       margin-bottom: 40px;
     }
-    h2 {
-      font-size: 1.8em;
+    h2 { /* PROJECTS - ART */
+      font-size: 2em;
       color: #bb86fc; /* Accent color for section titles */
       border-bottom: 2px solid #bb86fc;
       padding-bottom: 5px;
       margin-bottom: 20px;
+      
     }
-    h4 {
+    .about h3 { /* About and Academics section*/
+      /*font-family: 'Playfair Display', serif;*/
       font-size: 1.5em;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800; /* Makes it lighter */
+      margin: 0;
+      color: #e0e0e0;
+      letter-spacing: 0.5px; /* Slight spacing for a refined look */
+    }
+    h4 { /*project headers*/
+      font-family: 'Inter', sans-serif;
+      font-weight: 500; /* Makes it lighter */
+      font-size: 2em;
+      letter-spacing: 1px; /* Slight spacing for a refined look */
+      margin: 0;
       color: #d8baff; 
       padding-bottom: 5px;
       margin-bottom: 20px;
+      margin-top: 100px;
+      
     }
     a {
       color: #bb86fc; /* Hyperlink color */
@@ -77,6 +109,8 @@
     img {
       display: block;
       margin: 20px auto;
+      height: auto; /* Keeps the aspect ratio */
+      width: auto; /* Ensures it doesn't stretch */
       max-width: 100%;
       border: none; /* 2px solid #333; */
       border-radius: 8px;
@@ -94,10 +128,7 @@
       border-radius: 8px;
       text-align: center;
     }
-    .about h3 {
-      font-family: 'Playfair Display', serif;
-      color: #e0e0e0;
-    }
+    
     
     .art-gallery {
       display: grid;
@@ -182,7 +213,7 @@
     <h1>
       Darey-Ann Louisville  
       <br>
-      ルイヴィルデリーアン
+      <span class="subheader">ルイヴィルデリーアン</span>
     </h1>
   </header>
 
@@ -191,9 +222,10 @@
     <!-- About Section -->
     <section class="about">
       <h3 id="about">About</h3>
-      <p>こんにちは！I’m Darey-Ann, a graduate student at the University of Tokyo.</p>
-      <p>I'm originally from Suriname, South-America, and came to Japan on the Japanese Government (MEXT) Scholarship in 2022.</p>
-      <p>I'm interested in art, technology, and creative coding. Check out some of my projects below.</p>
+      <p>こんにちは！I’m Darey-Ann, a graduate student at the University of Tokyo.<br>
+        I'm originally from Suriname, South-America, and came to Japan on the Japanese Government (MEXT) Scholarship in 2022.
+        I'm interested in art, technology, and creative coding. <br>
+        Check out some of my projects below.</p>
       <p>Connect with me: 
         <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> | 
         <a href="https://github.com/Darey-Ann" target="_blank">GitHub</a>
