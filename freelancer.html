@@ -42,19 +42,26 @@
       color: #e0e0e0; /* Light text for readability */
     }
     header {
-      /* background-color: #1e1e1e;  Darker header background */
-      color: #d8b9ff; /* Accent color */
-      padding: 20px;
+      background-color: #1e1e1e;
+      padding: 100px 20px;
       text-align: center;
     }
-    header h1 { /* not used? */
-      /*font-family: 'Playfair Display', serif; */
+    
+    header h1 {
       font-family: 'Inter', sans-serif;
-      /*font-size: 3em;*/
-      font-weight: 800; /* Makes it lighter */
-      letter-spacing: 1.5px; /* Slight spacing for a refined look */
-      margin: 0;
+      font-size: 3.5em;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
     }
+    
+    .subheader {
+      font-size: 1.2em;
+      font-weight: 300;
+      display: block;
+      color: #bb86fc;
+    }
+    
     
     .subheader {
     font-size: 0.7em; /* Adjust size (0.7em means 70% of the main text) */
@@ -122,12 +129,15 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     }
-    .about {
-      background-color: #1e1e1e; /* Darker background for the about section */
-      padding: 20px;
-      border-radius: 8px;
+    .about, .projects {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       text-align: center;
+      margin-bottom: 30px;
     }
+    
     
     
     .art-gallery {
@@ -207,6 +217,28 @@
       cursor: pointer;
     }
     
+    nav {
+      position: sticky;
+      top: 0;
+      background: #1e1e1e;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+    
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    
+    nav a:hover {
+      color: #bb86fc;
+      text-decoration: none;
+    }
     
   </style>
 </head>
