@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhD Progress Log — Darey-Ann Louisville</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F5F0;
+    --paper-line:#DBDFE3;
+    --ink:#1B2430;
+    --ink-soft:#4A5568;
+    --hanko:#B23A2E;
+    --moss:#5C6E52;
+    --card:#FFFFFF;
+    --card-border:#E4E1D8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px),
+      var(--paper);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+  a{color:inherit;}
+  .wrap{max-width:720px;margin:0 auto;padding:56px 24px 100px;}
+
+  nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:64px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.03em;color:var(--ink-soft);}
+  nav a{text-decoration:none;}
+  nav .back{border-bottom:1px solid transparent;}
+  nav .back:hover{border-color:var(--hanko);color:var(--ink);}
+
+  .stamp{
+    display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+    width:64px;height:64px;border-radius:50%;
+    border:2px solid var(--hanko);color:var(--hanko);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.02em;
+    text-align:center;line-height:1.5;transform:rotate(-8deg);
+    flex-shrink:0;
+  }
+  header.hero{display:flex;gap:24px;align-items:flex-start;margin-bottom:12px;}
+  h1{font-family:'Newsreader',serif;font-weight:500;font-size:44px;line-height:1.15;margin:0 0 10px;}
+  .sub{color:var(--ink-soft);font-size:16px;line-height:1.6;max-width:52ch;}
+  .tag-row{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--moss);margin-top:18px;letter-spacing:0.02em;}
+
+  .divider{border:none;border-top:1px dashed #C7CCD1;margin:48px 0;}
+
+  .field-label{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--hanko);margin-bottom:14px;
+  }
+
+  #feed{list-style:none;margin:0;padding:0;}
+
+  .entry{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:3px;
+    padding:22px 24px;
+    margin-bottom:18px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02);
+  }
+  .entry .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .entry .date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);}
+  .entry .mini-stamp{
+    width:30px;height:30px;border-radius:50%;border:1.5px solid var(--hanko);
+    color:var(--hanko);font-family:'IBM Plex Mono',monospace;font-size:9px;
+    display:flex;align-items:center;justify-content:center;transform:rotate(6deg);
+    flex-shrink:0;
+  }
+  .entry h3{font-family:'Newsreader',serif;font-weight:500;font-size:20px;margin:0 0 8px;}
+  .entry p{color:var(--ink-soft);font-size:14.5px;line-height:1.65;margin:0 0 14px;white-space:pre-wrap;}
+
+  /* single media item, no carousel needed */
+  .media-single{margin-bottom:6px;}
+  .media-single img, .media-single video{
+    width:100%;max-height:380px;object-fit:cover;border-radius:2px;display:block;background:#EFEDE6;
+  }
+  .media-caption{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);
+    margin:8px 0 14px;font-style:italic;
+  }
+
+  /* carousel for 2+ media items */
+  .carousel{position:relative;margin-bottom:6px;}
+  .carousel-track{
+    display:flex;overflow:hidden;border-radius:2px;background:#EFEDE6;
+  }
+  .carousel-slide{
+    min-width:100%;display:none;
+  }
+  .carousel-slide.active{display:block;}
+  .carousel-slide img, .carousel-slide video{
+    width:100%;height:340px;object-fit:cover;display:block;
+  }
+  .carousel-arrow{
+    position:absolute;top:0;bottom:24px;width:40px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.0);border:none;cursor:pointer;
+    color:#fff;font-size:22px;font-family:'IBM Plex Mono',monospace;
+    text-shadow:0 1px 3px rgba(0,0,0,0.5);
+  }
+  .carousel-arrow:hover{color:var(--hanko);}
+  .carousel-arrow.prev{left:0;}
+  .carousel-arrow.next{right:0;}
+  .carousel-dots{
+    display:flex;gap:6px;justify-content:center;margin-top:10px;
+  }
+  .carousel-dots button{
+    width:6px;height:6px;border-radius:50%;border:none;padding:0;
+    background:#D8D4C8;cursor:pointer;
+  }
+  .carousel-dots button.active{background:var(--hanko);}
+  .carousel-caption{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);
+    margin:8px 0 14px;font-style:italic;min-height:14px;
+  }
+
+  .empty{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-soft);
+    border:1px dashed var(--card-border);border-radius:3px;padding:24px;text-align:center;
+  }
+  .error{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--hanko);
+    border:1px dashed var(--hanko);border-radius:3px;padding:24px;
+  }
+
+  footer{margin-top:60px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-align:center;}
+
+  @media (max-width: 480px){
+    header.hero{flex-direction:column;}
+    h1{font-size:34px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="back" href="/">← darey-ann.com</a>
+    <span>PHD LOG</span>
+  </nav>
+
+  <header class="hero">
+    <div class="stamp">DAREY<br>ANN</div>
+    <div>
+      <h1>PhD Progress Log</h1>
+      <div class="sub">A running field notebook on integrated human-nature systems — Well-being Engineering Lab, University of Tokyo. Documented as I go, mostly for future-me.</div>
+      <div class="tag-row" id="tagRow">LOADING…</div>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <div class="field-label">Entries</div>
+
+  <ul id="feed"></ul>
+
+  <footer>field notes, logged by hand — darey-ann louisville</footer>
+</div>
+
+<script>
+  const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+  function formatDate(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return `${MONTHS[m - 1]} ${d}, ${y}`;
+  }
+
+  async function loadPosts() {
+    const feed = document.getElementById("feed");
+    const tagRow = document.getElementById("tagRow");
+    try {
+      const res = await fetch("posts.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("Could not load posts.json");
+      let posts = await res.json();
+
+      // newest first
+      posts = posts.slice().sort((a, b) => b.date.localeCompare(a.date));
+
+      if (posts.length === 0) {
+        feed.innerHTML = `<li class="empty">No entries yet — the first one will show up here.</li>`;
+        tagRow.textContent = "ENTRIES: 0";
+        return;
+      }
+
+      tagRow.textContent =
+        `ENTRIES: ${posts.length} · STARTED: ${formatDate(posts[posts.length - 1].date)} · LATEST: ${formatDate(posts[0].date)}`;
+
+      feed.innerHTML = posts.map((post, i) => `
+        <li class="entry">
+          <div class="meta">
+            <span class="date">${formatDate(post.date).toUpperCase()}</span>
+            <div class="mini-stamp">記</div>
+          </div>
+          ${renderMedia(post.media || [], i)}
+          <h3>${escapeHtml(post.title)}</h3>
+          <p>${escapeHtml(post.text)}</p>
+        </li>
+      `).join("");
+
+      // wire up any carousels after they're in the DOM
+      posts.forEach((post, i) => {
+        if ((post.media || []).length > 1) initCarousel(i, post.media);
+      });
+    } catch (err) {
+      feed.innerHTML = `<li class="error">Couldn't load entries (${err.message}). If you're viewing this file directly on your computer, note that posts.json only loads when served over http — it'll work fine once pushed to GitHub Pages.</li>`;
+      tagRow.textContent = "—";
+    }
+  }
+
+  function mediaTag(item) {
+    if (item.type === "video") {
+      return `<video src="${item.src}" controls playsinline></video>`;
+    }
+    return `<img src="${item.src}" alt="${escapeHtml(item.caption || "")}" loading="lazy">`;
+  }
+
+  function renderMedia(media, postIndex) {
+    if (!media || media.length === 0) return "";
+
+    if (media.length === 1) {
+      const item = media[0];
+      return `
+        <div class="media-single">${mediaTag(item)}</div>
+        ${item.caption ? `<div class="media-caption">${escapeHtml(item.caption)}</div>` : ""}
+      `;
+    }
+
+    // 2+ items: carousel
+    const slides = media.map((item, i) => `
+      <div class="carousel-slide${i === 0 ? " active" : ""}">${mediaTag(item)}</div>
+    `).join("");
+
+    const dots = media.map((_, i) => `
+      <button class="${i === 0 ? "active" : ""}" data-dot="${i}" aria-label="Go to slide ${i + 1}"></button>
+    `).join("");
+
+    return `
+      <div class="carousel" id="carousel-${postIndex}" data-index="0">
+        <div class="carousel-track">${slides}</div>
+        <button class="carousel-arrow prev" aria-label="Previous">‹</button>
+        <button class="carousel-arrow next" aria-label="Next">›</button>
+      </div>
+      <div class="carousel-dots">${dots}</div>
+      <div class="carousel-caption" id="caption-${postIndex}">${escapeHtml(media[0].caption || "")}</div>
+    `;
+  }
+
+  function initCarousel(postIndex, media) {
+    const root = document.getElementById(`carousel-${postIndex}`);
+    if (!root) return;
+    const slides = root.querySelectorAll(".carousel-slide");
+    const dotsWrap = root.nextElementSibling; // .carousel-dots
+    const dots = dotsWrap.querySelectorAll("button");
+    const caption = document.getElementById(`caption-${postIndex}`);
+
+    function goTo(idx) {
+      const n = slides.length;
+      const wrapped = (idx + n) % n;
+      slides.forEach((s, i) => s.classList.toggle("active", i === wrapped));
+      dots.forEach((d, i) => d.classList.toggle("active", i === wrapped));
+      caption.textContent = media[wrapped].caption || "";
+      root.dataset.index = wrapped;
+
+      // pause any playing videos when leaving a slide
+      slides.forEach((s, i) => {
+        const v = s.querySelector("video");
+        if (v && i !== wrapped) v.pause();
+      });
+    }
+
+    root.querySelector(".prev").addEventListener("click", () => {
+      goTo(parseInt(root.dataset.index, 10) - 1);
+    });
+    root.querySelector(".next").addEventListener("click", () => {
+      goTo(parseInt(root.dataset.index, 10) + 1);
+    });
+    dots.forEach((d, i) => d.addEventListener("click", () => goTo(i)));
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  loadPosts();
+</script>
+</body>
+</html>

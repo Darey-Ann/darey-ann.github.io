@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-08-12",
+    "title": "First sensor prototypes arrived",
+    "text": "Spent the afternoon testing placement in the mock living room. The ambient light sensor is way more sensitive than the datasheet suggested — need to recalibrate before Thursday's pilot.",
+    "media": [
+      { "type": "image", "src": "images/future.png", "caption": "Unboxing the sensor kit" },
+      { "type": "image", "src": "images/ideao01.png", "caption": "Test placement, living room mockup" },
+      { "type": "video", "src": "images/temochimori.mp4", "caption": "Quick demo of the light response" }
+    ]
+  },
+  {
+    "date": "2026-08-06",
+    "title": "Reading week: systems thinking in ecological design",
+    "text": "Three papers deep on feedback-loop framing for human-nature interaction. Starting to see a throughline with the trust-acceptance spectrum from my Master's work.",
+    "media": [
+      { "type": "image", "src": "images/sensing.png", "caption": "Desk setup this week" }
+    ]
+  },
+  {
+    "date": "2026-07-30",
+    "title": "Just some notes, no photos today",
+    "text": "Mostly admin and email today — ethics approval paperwork for the pilot study. Not glamorous but necessary.",
+    "media": []
+  }
+]

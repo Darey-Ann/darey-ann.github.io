@@ -3,429 +3,1078 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Darey-Ann Louisville  |  ルイヴィルデリーアン</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <title>Darey-Ann Louisville | ルイヴィルデリーアン</title>
 
-  <nav style="position: sticky; top: 0; background: #1e1e1e; padding: 10px;">
-  <a href="#about">About</a> | <a href="#projects">Projects</a> | <a href="#art">Art</a>
-</nav>
+  <!-- Fonts: Inter only, full weight range -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- CSS Styles -->
+
   <style>
-    /* Make iframe responsive */
-    iframe {
-      width: 100%;  /* Takes full width of its container */
-      height: 80vh;  /* Sets the height to 80% of the viewport height (can be adjusted) */
-      border: none;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-      max-width: 100%;  /* Prevents the iframe from exceeding the width of its container */
-      max-height: 90vh; /* Prevents the iframe from becoming too tall */
-      display: block; /* Makes it a block element, so it can center and resize properly */
-      margin: 0 auto; /* Centers the iframe horizontally */
+    /* ---------- Tokens ---------- */
+    
+    :root {
+      --bg: #0b0b0e;
+      --bg-elevated: #17171c;
+      --bg-elevated-2: #1d1d23;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --text: #ededf0;
+      --text-body: #c7c5cf;
+      --text-muted: #8f8c9b;
+      --accent: #a78bfa;
+      --accent-bright: #cabaff;
+      --accent-soft: rgba(167, 139, 250, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --maxw: 1000px;
+      --font: 'Inter', sans-serif;
+      /* more colors */
+      --paper:#F7F5F0;
+      --paper-line:#DBDFE3;
+      --ink:#1B2430;
+      --ink-soft:#4A5568;
+      --hanko:#B23A2E;
+      --moss:#5C6E52;
+      --card:#FFFFFF;
+      --card-border:#E4E1D8;
     }
+
+    * { box-sizing: border-box; }
+
     html {
-      scroll-behavior: smooth; /* Smooth scrolling for the entire site */
+      scroll-behavior: smooth;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+
     body {
-      /*font-family: 'Roboto', sans-serif;*/
-      font-family: 'Inter', sans-serif;
-      font-weight: 300; /* Makes it lighter */
-      /*font-size: 20px; /* Adjust size (0.7em means 70% of the main text) */
-      letter-spacing: 0.5px; /* Slight spacing for a refined look */
+      font-family: var(--font);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      letter-spacing: 0.1px;
       margin: 0;
       padding: 0;
-      background-color: #121212; /* Dark theme background */
-      color: #e0e0e0; /* Light text for readability */
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% -10%, rgba(167, 139, 250, 0.10), transparent 45%),
+        radial-gradient(circle at 85% 0%, rgba(167, 139, 250, 0.06), transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-body);
     }
-    header {
-      /* background-color: #1e1e1e;  Darker header background */
-      color: #d8b9ff; /* Accent color */
-      padding: 20px;
-      text-align: center;
+
+    ::selection {
+      background: var(--accent-soft);
+      color: var(--accent-bright);
     }
-    header h1 { /* not used? */
-      /*font-family: 'Playfair Display', serif; */
-      font-family: 'Inter', sans-serif;
-      /*font-size: 3em;*/
-      font-weight: 800; /* Makes it lighter */
-      letter-spacing: 1.5px; /* Slight spacing for a refined look */
-      margin: 0;
-    }
-    
-    .subheader {
-    font-size: 0.7em; /* Adjust size (0.7em means 70% of the main text) */
-    font-weight: 100; /* Lighter weight */
-    display: block; /* Ensures it stays on a new line */
-    margin-top: 0.5px; /* Add a bit of space */
-    }
-    main {
-      padding: 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    section {
-      margin-bottom: 40px;
-    }
-    h2 { /* PROJECTS - ART */
-      font-size: 2em;
-      color: #bb86fc; /* Accent color for section titles */
-      border-bottom: 2px solid #bb86fc;
-      padding-bottom: 5px;
-      margin-bottom: 20px;
-      
-    }
-    .about h3 { /* About and Academics section*/
-      /*font-family: 'Playfair Display', serif;*/
-      font-size: 1.5em;
-      font-family: 'Inter', sans-serif;
-      font-weight: 800; /* Makes it lighter */
-      margin: 0;
-      color: #e0e0e0;
-      letter-spacing: 0.5px; /* Slight spacing for a refined look */
-    }
-    h4 { /*project headers*/
-      font-family: 'Inter', sans-serif;
-      font-weight: 500; /* Makes it lighter */
-      font-size: 2em;
-      letter-spacing: 1px; /* Slight spacing for a refined look */
-      margin: 0;
-      color: #d8baff; 
-      padding-bottom: 5px;
-      margin-bottom: 20px;
-      margin-top: 100px;
-      
-    }
+
     a {
-      color: #bb86fc; /* Hyperlink color */
+      color: var(--accent-bright);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* ---------- Nav ---------- */
+    nav.site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 28px; /* 16px 28px */
+      background: rgba(11, 11, 14, 0.75);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid var(--border);
+    }
+    nav.site-nav .brand {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      font-size: 0.95rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    nav.site-nav .brand:hover { color: var(--accent-bright); text-decoration: none; }
+    nav.site-nav .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: flex-end;
+    }
+    nav.site-nav .links a {
+      color: var(--text-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    nav.site-nav .links a:hover {
+      background: var(--accent-soft);
+      color: var(--accent-bright);
       text-decoration: none;
     }
-    a:hover {
-      text-decoration: underline; /* Hover effect for links */
+    nav.site-nav .links a.phd-link {
+      border: 1px solid var(--border-strong);
     }
-    img {
+
+    /* ---------- Layout helpers ---------- */
+    main { padding: 0 24px; }
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+    section { margin-bottom: 96px; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    h2.section-title {
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin: 0 0 28px 0;
+    }
+
+    .inline-flag {
+      height: 1em;
+      width: auto;
+      display: inline-block;
+      vertical-align: -0.15em;
+      margin-left: 3px;
+    }
+
+    /* ---------- Reveal-on-scroll ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- Hero ---------- */
+    header.hero {
+      padding: 96px 24px 64px;
+      text-align: center;
+      position: relative;
+    }
+    header.hero h1 {
+      font-family: var(--font);
+      font-weight: 600; /* 800 */
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      line-height: 1.2;
+      letter-spacing: 0.02em; /* -0.02em */
+      margin: 0;
+      color: var(--text);
+    }
+    header.hero .subheader {
+      display: block;
+      font-size: 0.5em; /* 1.05rem; */
+      font-weight: 300; /* 200 */
+      letter-spacing: 0.12em; /* 0.35em */
+      color: var(--text); /* --text-muted */
+      margin-top: 4px; /* 14px  */
+    }
+    header.hero .tagline {
+      max-width: 520px;
+      margin: 28px auto 0; /* margin: 28px auto 0; */
+      font-weight: 300;
+      font-size: 1.02rem;
+      color: var(--text-body);
+    }
+
+    /* ---------- DAREY ANN logo - stamp class  ----------  */
+    .stamp{
+    display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+    width:64px;height:64px;border-radius:50%;
+    border:2px solid var(--hanko);color:var(--hanko);
+    font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:500;letter-spacing:0.00em;
+    text-align:center;line-height:1.0;transform:rotate(-8deg);
+    flex-shrink:0;
+  }
+
+    /* ---------- About ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 760px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+    .about-card {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+    .about-card h3 {
+      font-family: var(--font);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin: 0 0 16px 0;
+      color: var(--text);
+    }
+    .about-card p { margin: 0 0 14px 0; }
+    .about-card p:last-child { margin-bottom: 0; }
+    .about-card .connect-links { margin-top: 20px; font-size: 0.92rem; }
+    .about-card .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
+    }
+    .about-card .degree-block { margin-bottom: 22px; }
+    .about-card .degree-block:last-child { margin-bottom: 0; }
+    .about-card .degree-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .about-card .degree-title {
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 8px 0;
+    }
+    .about-card .degree-block p { font-size: 0.92rem; margin-bottom: 6px; }
+
+
+    /* ---------- Research Notes Page ---------- */
+    .research-postit {
+      position: relative;
+      display: inline-block;
+      width: 180px;
+      text-decoration: none;
+      transform: rotate(-8deg); /* roteert de postit -8 graden */
+      transition: transform 0.2s ease;
+    }
+    
+    .research-postit img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    
+    .research-postit span { /* voor de tekst op de postit - schuift de tekst op */
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+    
+      color: #2c1b1b;
+      font-size: 1.4rem;
+      /*font-family:'Courier New', Courier, monospace;*/
+      font-family:'IBM Plex Mono',monospace;
+      font-weight: 500;
+      line-height: 1.0;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .research-postit-container { /* for my postit that links to my PhD research page*/
+      display: flex;
+      justify-content: center;
+      margin-top: 0px;
+    }
+    
+    .research-postit:hover {
+      transform: scale(1.06);
+    }
+
+
+    /* ---------- Projects ---------- */
+    .project-card {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 32px;
+    }
+    .project-card:last-child { margin-bottom: 0; }
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .project-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+    .project-date {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .project-card h4 {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: -0.005em;
+      margin: 0 0 20px 0;
+      color: var(--accent-bright);
+    }
+    .project-card p { margin: 0 0 14px 0; }
+    .project-card p:last-child { margin-bottom: 0; }
+    .project-card b { color: var(--text); font-weight: 600; }
+    .project-card .keywords {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+    .project-card img {
       display: block;
       margin: 20px auto;
-      height: auto; /* Keeps the aspect ratio */
-      width: auto; /* Ensures it doesn't stretch */
+      height: auto;
+      width: auto;
       max-width: 100%;
-      border: none; /* 2px solid #333; */
-      border-radius: 8px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+    .project-card .cta-link {
+      display: inline-block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 8px 18px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      margin: 6px 0;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .project-card .cta-link:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+    .video-container { max-width: 800px; margin: 20px auto 0; }
+    video {
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      display: block;
     }
     iframe {
       width: 100%;
       height: 500px;
       border: none;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
     }
-    .about {
-      background-color: #1e1e1e; /* Darker background for the about section */
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
+    @media (max-width: 760px) {
+      iframe { height: 60vh; }
+      .project-card { padding: 26px 20px; }
+    }
+
+
+    /* ---------- Comic carousel ---------- */
+
+    .comic-carousel {
+      position: relative;
+      max-width: 100%;
+      margin: 28px auto 0;
+      overflow: hidden;
     }
     
+    .comic-track {
+      display: flex;
+      gap: 12px;
+      transition: transform 0.4s ease;
+    }
     
+    .comic-track img {
+      height: 500px;
+      width: auto;
+      flex-shrink: 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      object-fit: contain;
+      cursor: pointer;
+    }
+    
+    .comic-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+    
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+    
+      background: rgba(0, 0, 0, 0.65);
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    
+    .comic-prev {
+      left: 10px;
+    }
+    
+    .comic-next {
+      right: 10px;
+    }
+    
+    .comic-arrow:hover {
+      background: rgba(0, 0, 0, 0.85);
+    }
+    
+    @media (max-width: 700px) {
+      .comic-track img {
+        width: 100%;
+      }
+    }
+
+    /* ---------- Art gallery ---------- */
+    .art-section .lede {
+      max-width: 640px;
+      margin: -8px 0 28px 0;
+    }
     .art-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr); /* or 2, 1fr */
       gap: 20px;
-      padding: 20px 0;
     }
-    .art-gallery img {
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    @media (max-width: 900px) {
+      .art-gallery { grid-template-columns: repeat(2, 1fr); }
     }
-    
-    .art-gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    @media (max-width: 560px) {
+      .art-gallery { grid-template-columns: 1fr; }
     }
-    
-    
-    
-    /* Modal styles */
+    .art-item {
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1; /* to decide the shape of the art previews, was 4 / 5*/
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      background: var(--bg-elevated);
+    }
+    .art-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* contain or cover */
+      display: block;
+      margin: 0;
+      border-radius: 0;
+      transition: transform 0.5s ease;
+    }
+    .art-item:hover img { transform: scale(1.06); }
+    .art-item .art-caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 16px 14px 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .art-item:hover .art-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- Modal ---------- */
     .modal {
       display: none;
       position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 50;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(6, 6, 8, 0.88);
+      backdrop-filter: blur(6px);
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
-    /* Modal content styling */
+
+    .modal-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    
+      width: 48px;
+      height: 48px;
+    
+      border: none;
+      border-radius: 50%;
+    
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+    
+      font-size: 28px;
+      cursor: pointer;
+    
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    
+      transition: background 0.2s ease, transform 0.2s ease;
+      z-index: 10;
+    }
+
+    .modal-arrow:hover {
+      background: rgba(0, 0, 0, 0.85);
+    }
+    
+    .modal-prev {
+      left: 20px;
+    }
+    
+    .modal-next {
+      right: 20px;
+    }
+
     .modal-content {
-      background-color: rgba(255, 255, 255, 0.8);
-      color: black;
-      padding: 15px;  /* Slightly reduced padding */
-      border-radius: 10px;
-      max-width: 75%; /* Allowing the modal to use more space */
-      max-height: 90%;  /* Reducing max height on small screens */
+      background-color: var(--bg-elevated-2);
+      border: 1px solid var(--border-strong);
+      color: var(--text-body);
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      max-width: 780px;
+      width: 100%;
+      max-height: 90vh;
       overflow-y: auto;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-      margin: 20px auto; /* Centers the modal */
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      position: relative;
     }
-    
-    /* For mobile responsiveness */
-    @media (max-width: 768px) {
-      .modal-content {
-        max-width: 100%;
-        padding: 10px; /* Less padding for smaller screens */
-        max-height: 90vh;  /* Makes sure the modal is still within the screen on small devices */
-      }
-      iframe {
-        height: 60vh;  /* Smaller height for mobile devices */
-      }
+    .modal-content img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      display: block;
+      margin: 0 auto;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
     }
-    
-    .modal img {
-      max-width: 90vw;  /* Limits width to 90% of the viewport width */
-      max-height: 80vh; /* Limits height to 80% of the viewport height */
-      object-fit: contain; /* Ensures the image scales proportionally */
-      border-radius: 8px;
+
+    .modal-content img.zoomed {
+      transform: scale(1.8);
+      cursor: zoom-out;
+      /* overscroll-behavior: contain; */ /* Wanted to make it so that when you scroll in an image, it doesn't scroll on the page, but it doesn't work*/
     }
-    
     .modal-description {
-      margin-top: 15px;
-      color: #121212;
-      font-size: 1.2em;
+      margin-top: 18px;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
     }
     .close {
       position: absolute;
       top: 10px;
-      right: 10px;
-      font-size: 2em;
-      color: #fff;
+      right: 16px;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--text-muted);
       cursor: pointer;
+      transition: color 0.2s ease;
     }
-    
-    
+    .close:hover { color: var(--accent-bright); }
+
+    /* ---------- Footer ---------- */
+    footer.site-footer {
+      background-color: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 0.9rem;
+    }
+    footer.site-footer p { margin: 0 0 10px 0; }
+    footer.site-footer .footer-links a { margin: 0 8px; }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
+  <nav class="site-nav">
+    <!-- div class hanko for the brand!-->
+    <!-- <a href="#" class="brand"> <div class="stamp">DAREY<br>ANN</div> </a> -->
+    <a href="#" class="brand"> <div class="stamp">デリー<br>アン</div> </a>
+    
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#art">Art</a>
+      <a href="researchnotes/index.html" class="phd-link" target="_blank">Research Notes ↗</a>
+    </div>
+  </nav>
+
+  <header class="hero">
     <h1>
-      Darey-Ann Louisville  
-      <br>
-      <span class="subheader">ルイヴィルデリーアン</span>
+      Darey-Ann Louisville
+      <span class="subheader">ルイヴィル・デリーアン</span>
     </h1>
+    <p class="tagline"><i>Surinamese PhD student at the University of Tokyo, researching how to use technology to connect deeper with nature.</i></p>
+    
+    <div class="research-postit-container">
+      <a href="researchnotes/index.html" class="research-postit" target="_blank">
+        <img src="main_art/postit.png" alt="">
+        <span>My<br>Research<br>Notes</span>
+      </a>
+    </div>
+  
   </header>
 
-  <!-- Main Content -->
+  
+
   <main>
-    <!-- About Section -->
-    <section class="about">
-      <h3 id="about">About</h3>
-      <p>こんにちは！I’m Darey-Ann, a graduate student at the University of Tokyo.<br>
-        I'm originally from Suriname, South-America, and came to Japan on the Japanese Government (MEXT) Scholarship in 2022.
-        I'm interested in art, technology, and creative coding. <br>
-        Check out some of my projects below.</p>
-      <p>Connect with me: 
-        <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> | 
-        <a href="https://github.com/Darey-Ann" target="_blank">GitHub</a>
-      </p>
-    </section>
-    
-    <section class="about">
-     <h3>Academics</h3>
-     <p>I did my undergraduate in Mathematics at the Anton de Kom University of Suriname. As a MEXT scholar, I did my research student period at the Graduate School of IST, UTokyo. My current stats:</p>
-     <br><br>
-     <b><u>Master of Arts and Sciences in the field of Information Studies</u></b>
-     <p>Graduate School of Interdisciplinary Information Studies - Emerging Design and Informatics Course</p>
-     <p>Thesis: Design Exploration of Camera Monitoring to Foster Trust in Elderly Care Facilities</p>
-     <p>Lab: <a href="https://www.designlab.ac/" target="_blank">DLX Design Lab | Pennington Lab</a> </p>
-     <br><br>
+    <div class="wrap">
 
-     <p><b><u>PhD student</u></b></p>
-     <p>Graduate School of Information Science and Technology - Department of Mechano-Informatics</p>
-     <p>Research: Integrated human-nature system (work in progess)</p>
-     <p>Lab: <a href="https://www.welbe.imi.i.u-tokyo.ac.jp/en/" target="_blank">Well-being Engineering Lab | Professor Nihei</a> </p>
-   </section>
-   
+      <!-- About -->
+      <section id="about" class="reveal">
+        <!-- <span class="eyebrow">Who I Am</span> -->
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>こんにちは！ | Hello! </h3>
+            <p>I'm Darey-Ann, pleased to meet you! 
+              <br>I'm a doctorate student at the University of Tokyo and am originally from Suriname <img src="main_art/suflag.png" alt="Suriname flag" class="inline-flag">, 
+              a small country in South America, right above Brazil. 
+              <br>I came to Japan on the Japanese Government (MEXT) Scholarship in 2022 and have been living in Tokyo ever since. 
+              <br>
+              
+              <br>
+              <!-- I finished my master's studies in March 2026, and in April 2026 I embarked on my PhD journey! -->
 
-    <section class="projects">
-      <h2 id="projects">Projects</h2>
+              I'm interested in art, technology, and creative coding, and my current research is about reconnecting with nature via technology. 
+            <br>
+            Check out some of my projects below.</p>
+            <div class="connect-links">
+              <i>Connect with me:
+              <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> ·
+              <a href="https://github.com/Darey-Ann" target="_blank">GitHub</a></i>
+            </div>
+          </div>
+          <div class="about-card">
+            <h3>Academics</h3>
+            <p>I completed my undergraduate in Mathematics at the Anton de Kom University of Suriname. As a MEXT scholar, I did a 2-year research student period at the Graduate School of Information Science and Technology, The University of Tokyo. Now:</p>
+            
+            <!--
+            <hr class="divider">
+            <div class="degree-block">
+              <div class="degree-label">Bachelor of Science (2018)</div>
+              <p>Anton de Kom University of Suriname</p>
+              <p class="degree-title">Mathematics</p>
+              <p>Faculty of Mathematics and Natural Sciences</p>
+              <p>Thesis: The Björling problem in Lorentz-Minkowski Space</p>
+            </div>
 
-      <!-- Project 5 -->
-      <section>
-        <h4>Master's Thesis Project</h4>
-        <img src="birdie_comic.png" alt="project comic about the bedside birdie">
-        March 2026
-        <p><b>Title: Design Exploration of Camera Monitoring to Foster Trust in Elderly Care Facilities</b></p> 
-        <p><b>Abstract:</b> <br> Japan is rapidly becoming a “super aging society” with the elderly population exceeding 29%
-in 2025. This demographic shift places significant pressure on elder care facilities due to severe
-understaffing and an increased risk of unsupervised accidents. Although the Japanese government promotes technological solutions, conventional surveillance systems often face ethical and emotional resistance related to privacy, autonomy, and the feeling of being watched.
-This research investigates how the design of camera monitoring systems can be redesigned
-to foster trust and emotional support for residents in care facilities. The study explores whether
-users can be shifted along an “acceptance spectrum,” from passive tolerance to active preference
-and trust. Drawing on the Baby Schema (Kindchenschema) and the Technology Acceptance
-Model (TAM), the study examines how the perceived usefulness, user control, and camera form
-influence acceptance. Using a Research through Design methodology with a mixed-methods, participatory approach, the project progressed through four iterative phases: literature review, user engagement, prototyping, and analysis. Data collection included a perception workshop, a custom “Friendshapes” application to study visual attributes associated with safety and trust, and in-person interviews with residents and staff at elder care facilities by San Ikukai and AS Partners.
-The design process produced three interaction categories: nurture, reflect, and connect, with two low fidelity prototypes. The first is a plush companion evoking nurturing responses alongside employing its surveillance functions, and the second is an assistant bot, which offers personal health insights to support user agency. Findings show that acceptance depends on a
-“privacy-for-benefit trade-off,” with greater openness when monitoring provides direct value.
-Ultimately, this research argues that the discomfort of surveillance is a design challenge
-rather than solely an inherent technological limitation. By rethinking the physical form and the
-interactive relationship between the device and the resident, surveillance can be transformed
-into an ethically aware, supportive service. This study contributes a design framework and a set
-of principles to guide the development of future monitoring technologies that prioritize human
-dignity and long-term well-being. </p>
+            <hr class="divider">
+            <div class="degree-block">
+              <div class="degree-label">MEXT Research Student (2022)</div>
+              <p>The University of Tokyo</p>
+              <p class="degree-title">Information and Communication Engineering</p>
+              <p>Graduate School of Information Science and Technology</p>
+              <p>Lab: <a href="https://www.ut-vision.org/" target="_blank">Sugano Lab</a></p>
+            </div> -->
 
-<p>Keywords: Well-being Engineering, Elder care, Camera monitoring, Research through Design, Agetech</p>
-        
+            <hr class="divider">
+            <div class="degree-block">
+              <div class="degree-label">Master of Arts and Sciences (2026)</div>
+              <p class="degree-title">Emerging Design and Informatics</p>
+              <p>Graduate School of Interdisciplinary Information Studies</p>
+              <p><i>Thesis: Design Exploration of Camera Monitoring to Foster Trust in Elderly Care Facilities</i></p>
+              <p>Lab: <a href="https://www.designlab.ac/" target="_blank">DLX Design Lab | Pennington Lab</a></p>
+            </div>
 
+            <hr class="divider">
+            <div class="degree-block">
+              <div class="degree-label">PhD Student (current)</div>
+              <p class="degree-title">Mechano-Informatics</p>
+              <p>Graduate School of Information Science and Technology</p>
+              <p><i>Research: Integrated human-nature system (work in progress)</i></p>
+              <p>Lab: <a href="https://www.welbe.imi.i.u-tokyo.ac.jp/en/" target="_blank">Well-being Engineering Lab | Nihei Lab</a></p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <!-- Project 4 -->
-      <section>
-        <h4>Friendshapes: A three.js app</h4>
-        <img src="friendshapes.png" alt="friendshapes screenshot">
-        February 2025
-        <p>This is an application created to support my ongoing research about camera monitoring acceptance in elder care facilities in Japan </p>
-        <p>With this app, I've asked people to create a shape that feels safe and trustworthy to them. The app was
-          created by utilizing the mathematical  <a href="https://en.wikipedia.org/wiki/Superquadrics" target="_blank">superquadric formula</a> 
-          and adding additional parameters to create unique sliders.
-        </p>
-        <p>This exploration is to discover what the trends are for people around me in choosing "friend shapes" and if this shape language can be translated into the design of monitoring cameras in order to make them more trustworthy.</p>
-        <p> Try it out <a href="https://darey-ann.github.io/friendshapes" target="_blank">here</a> or below.</p>
-        <iframe src="https://darey-ann.github.io/friendshapes/" width="100%" height="500px" style="border: none;"></iframe>
+      <!-- Projects -->
+      <section id="projects" > <!-- removed class="reveal" -->
+        <!-- <span class="eyebrow">Selected Work</span> -->
+        <h2 class="section-title">Projects</h2>
 
-      </section>
+        <!-- Project 5 -->
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-tag">Thesis Project</span>
+            <span class="project-date">March 2026</span>
+          </div>
+          <h4>Master's Thesis Project</h4>
+          
+          <h2><b>Title: Design Exploration of Camera Monitoring to Foster Trust in Elderly Care Facilities</b></h2>
+          <p>This research investigated how the design of camera monitoring systems can be redesigned to foster trust and emotional support for residents in care facilities. 
+          The study explored whether users can be shifted along an "acceptance spectrum," from passive tolerance to active preference and trust. 
+          Drawing on the Baby Schema (Kindchenschema) and the Technology Acceptance Model (TAM), the study examined how the perceived usefulness, user control, and camera form influence acceptance. 
+          Using a Research through Design methodology with a mixed-methods, participatory approach, the project progressed through four iterative phases: literature review, user engagement, prototyping, and analysis. 
+          Data collection included a perception workshop, a custom "Friendshapes" application to study visual attributes associated with safety and trust, and in-person interviews with residents and staff at elder care facilities by San Ikukai and AS Partners.
+          The design process produced three interaction categories: nurture, reflect, and connect, with two low fidelity prototypes. The first is a plush companion evoking nurturing responses alongside employing its surveillance functions, and the second is an assistant bot, which offers personal health insights to support user agency. 
+          Findings show that acceptance depends on a "privacy-for-benefit trade-off," with greater openness when monitoring provides direct value.
+          Ultimately, this research argues that the discomfort of surveillance is a design challenge rather than solely an inherent technological limitation. By rethinking the physical form and the interactive relationship between the device and the resident, surveillance can be transformed into an ethically aware, supportive service. This study contributes a design framework and a set of principles to guide the development of future monitoring technologies that prioritize human dignity and long-term well-being.
+          </p>
+          <p class="keywords">Keywords: Well-being Engineering, Elder care, Camera monitoring, Research through Design, Agetech</p>
+          <!-- <img src="main_art/birdie_comic.png" alt="project comic about the bedside birdie"> -->
 
-      <!-- Project 3 -->
-      <section>
-        <h4>GIZMO: Blinky Thing</h4>
-        <p> See the GitHub Repository <a href="https://github.com/Darey-Ann/BlinkyCube" target="_blank">HERE</a> 
-        <img src="gizmo02.png" alt="description">
-        February 2025
-        <p>For the Bootcamp at DLX Design Lab, we learned how to work with Arduino Uno.
-          I created a toy that lights up and plays sounds when you touch it. Watch a demo here: </p>      
-        <section>
-          <div class="video-container" style="max-width: 800px; margin: 0 auto;">
-            <!-- Video Element -->
+          
+
+          <div class="comic-carousel">
+            <b>A comic about the plush companion concept:</b>
+            <button class="comic-arrow comic-prev" aria-label="Previous comic panel">‹</button>
+          
+            <div class="comic-track">
+              <img src="main_art/00.png" alt="Birdie comic panel 1" style="border: none; border-radius: 0;"">
+              <img src="main_art/01.png" alt="Birdie comic panel 2" style="border: none; border-radius: 0;">
+              <img src="main_art/02.png" alt="Birdie comic panel 3" style="border: none; border-radius: 0;">
+              <img src="main_art/03.png" alt="Birdie comic panel 4" style="border: none; border-radius: 0;">
+              <img src="main_art/04.png" alt="Birdie comic panel 5" style="border: none; border-radius: 0;">
+              <img src="main_art/05.png" alt="Birdie comic panel 6" style="border: none; border-radius: 0;">
+            </div>
+          
+            <button class="comic-arrow comic-next" aria-label="Next comic panel">›</button>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-tag">Master's Research Exploration</span>
+            <span class="project-date">February 2025</span>
+          </div>
+          <h4>Friendshapes: A three.js app</h4>
+
+          <p>This is an application created to support my master's research about camera monitoring acceptance in elder care facilities in Japan.
+          With this app, I've asked people to create a shape that feels safe and trustworthy to them. The app was created by utilizing the mathematical <a href="https://en.wikipedia.org/wiki/Superquadrics" target="_blank">superquadric formula</a> and adding additional parameters to create unique sliders.
+          <br>This exploration is to discover what the trends are for people around me in choosing "friend shapes" and if this shape language can be translated into the design of monitoring cameras in order to make them more trustworthy.</p>
+          
+
+          <img src="main_art/friendshapes.png" alt="friendshapes screenshot" style="height: 300px; width: auto;">
+          <!-- <p><a href="https://darey-ann.github.io/friendshapes" target="_blank" class="cta-link">Try it out ↗</a></p> -->
+          <iframe src="https://darey-ann.github.io/friendshapes/" width="100%" height="500px" style="border: none;"></iframe>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-tag">Physical Computing</span>
+            <span class="project-date">February 2025</span>
+          </div>
+          <h4>GIZMO: Blinky Thing</h4>
+          <p>For the Bootcamp at DLX Design Lab, we learned how to work with Arduino Uno. I created a toy that lights up and plays sounds when you touch it.</p> 
+          <p><a href="https://github.com/Darey-Ann/BlinkyCube" target="_blank" class="cta-link">See the GitHub repository ↗</a></p>
+
+          <p><b>Watch a demo here:</b></p>
+          
+          <div class="video-container">
             <video id="gizmo" width="100%" controls>
-              <source src="blinkything_latest.mp4" type="video/mp4">
+              <source src="main_art/blinkything_latest.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-        </section>
+          </div>
+
+          
+          <img src="main_art/gizmo02.png" alt="description" style="height: 400px; width: auto;">
+          
+          
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-tag">Media Design</span>
+            <span class="project-date">November 2024</span>
+          </div>
+          <h4>Reimagining New Year's Celebrations Prototype</h4>
+          <p>For the Media Design Course, our group designed a light installation to help people become more aware of their surroundings. This specific design was in response to the growing phenomenon of "smartphone-walking" in Japan.</p>
+          <p>Here is a short visualization of our project.</p>
+          <div class="video-container">
+            <video id="myVideo" width="100%" controls>
+              <source src="main_art/look up - with sound.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p><br>Below is an interactive app to showcase how the installation would work. Click on a person to make them look up at the ceiling, or down at their phones. When everyone's looking down at their phones, there's no lightshow.</p>
+          <iframe src="https://editor.p5js.org/darey-ann/full/Cr8k-eT29" allowfullscreen></iframe>
+        </article>
+
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-tag">Creative Coding | Exhibition Project</span>
+          </div>
+          <h4>Champloo: A p5.js Collage App</h4>
+          <img src="main_art/champloo.gif" alt="Champloo GIF" style="border: none; border-radius: 0;">
+          <p>A standalone p5.js collage application, created for the University of Tokyo's 2024 iii Exhibition.
+          <a href="https://github.com/Darey-Ann/Champloo" target="_blank" class="cta-link">See more details on my GitHub page ↗</a></p>
+          
+          <p>Double-click to start!</p>
+          <iframe src="https://editor.p5js.org/darey-ann/full/-zAQ39d3Z" allowfullscreen></iframe>
+        </article>
 
       </section>
-        
-        <!-- Project 2 -->
-        <section>
-          <h4>Reimagining New Year's Celebrations Prototype</h4>
-          <p> For the Media Design Course, our group designed a light installation to help people become more aware of their surroundings. This specific design was in response to the growing phenomenon of "smartphone-walking" in Japan.</p>
-          <p> Here is a short visualization of our project.</p>
+
+      <!-- Art -->
+      <section id="art" class="art-section reveal">
+        <span class="eyebrow">Visual Work</span>
+        <h2 class="section-title">Art</h2>
+        <p class="lede">I like digital and traditional art as well. Here are some of my more recent pieces.</p>
+        <div class="art-gallery">
+
+          <div class="art-item" data-description="<i>August 2026</i><br>
+          This is one of the illustrations featured on the poster of one of our laboratory projects called: TEMOCHIMORI (to hold a forest in your hand).
+          <br> Our project was accepted as a late-breaking abstract at the ALIFE 2026 Conference.">
+            <img src="art/future_darkbg.png" alt="ALIFE 2026 poster art">
+            <div class="art-caption">ALIFE 2026 poster art</div>
+          </div>
+
+          <div class="art-item" data-description="<i>April 2026</i><br>
+            An illustration to go along with my research theme. 
+          With my project, I want to explore the question: How can we use technology to encourage harmonious coexistence with nature?
+          <br>
+          <br>
+          This is an illustration depicting an interactive installation that offers a fully immersive experience and utilizes all five senses to give the user a sense of being in nature.">
+            <img src="art/phdproject.png" alt="PhD proposal art">
+            <div class="art-caption">Immersive Multisensory Experiences - Bringing nature to us</div>
+          </div>
           
-          <section>
-            <div class="video-container" style="max-width: 800px; margin: 0 auto;">
-              <!-- Video Element -->
-              <video id="myVideo" width="100%" controls>
-                <source src="look up - with sound.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-          </section>
-          <p> Below is an interactive app to showcase how the installation would work. 
-          Click on a person to make them look up at the ceiling, or down at their phones.
-          When everyone's looking down at their phones, there's no lightshow.</p>
-          <iframe 
-            src="https://editor.p5js.org/darey-ann/full/Cr8k-eT29"
-            allowfullscreen>
-          </iframe>
-        </section>
+          <div class="art-item" data-description="<i>July 2025</i><br>
+            This was my contribution to the 'Everybody's Ah!' exhibit at the Design Ah! Exhibition Neo in July 2025! Done with a blue colored pencil on printer paper.">
+            <img src="art/designah2.png" alt="Artwork 4">
+            <div class="art-caption">Design Ah! Exhibition Neo, 2025</div>
+          </div>
 
-          <!-- Project 1 -->
-        <section>
-          <h4>Champloo: A p5.js Collage App</h4>
-          <img src="champloo.gif" alt="Champloo GIF">
-          <p>A standalone p5.js collage application, created for the University of Tokyo's 2024 iii Exhibition. </p>
-          <p> See more details on <a href="https://github.com/Darey-Ann/Champloo" target="_blank"> my GitHub page</a>.</p>
-          <p> Double-click to start!</p>
-          <iframe 
-            src="https://editor.p5js.org/darey-ann/full/-zAQ39d3Z" 
-            allowfullscreen>
-          </iframe>
-        </section>
+          <div class="art-item" data-description="<i>November 2024</i><br>
+            This was the official thumbnail for the Champloo Exhibition artwork.">
+            <img src="art/champloo05.png" alt="Artwork 2">
+            <div class="art-caption">Exhibition project logo</div>
+          </div>
 
+          <div class="art-item" data-description="<i>昔、昔。。。</i><br>
+            I made this for a friend who loves manga. 
+          I drew all elements in Photoshop and used his pictures as reference for the cover.">
+            <img src="art/Cover02.jpg" alt="Manga Cover">
+            <div class="art-caption">Manga cover art</div>
+          </div>
 
-    </section>
-    
-    <!-- Art -->
-    <!-- Main Content -->
-  <main>
-    <section class="art">
-     <h2 id="art">Art</h2>
-     <p>I like digital and traditional art as well. Here are some of my more recent pieces.</p>
-     <div class="art-gallery">
-       <!-- Art Images -->
-       <img src="art/Cover02.jpg" alt="Artwork 1" class="art-item" data-description="I made this for a friend who loves manga. I drew all elements in Photoshop and used his pictures as reference for the cover.">
-       <img src="art/champloo05.png" alt="Artwork 2" class="art-item" data-description="This was the official thumbnail for the Champloo Exhibition artwork.">
-       <img src="art/Recalibrate.png" alt="Artwork 3" class="art-item" data-description="This was created for the Tokyo Union Church Young Adults Group retreat in Atami, February 2024. The modern calligraphy was drawn by hand (using a modified brush in Photoshop).">
-       <img src="art/designah2.png" alt="Artwork 4" class="art-item" data-description="This was my contribution to the 'Everybody's Ah!' exhibit at the Design Ah! Exhibition neo in July 2025! Done with a blue colored pencil on printer paper.">
-     </div>
-    </section>
-  </main>
-   
-   <!-- Modal for image details -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <img id="modal-img" src="" alt="Artwork Detail">
-      <p id="modal-description" class="modal-description"></p>
+          <div class="art-item" data-description="<i>昔、昔。。。</i><br>
+            A farewell gift for my friend! Digitally drawn.">
+            <img src="art/joey.png" alt="Joey's cover">
+            <div class="art-caption">Photo album cover</div>
+          </div>
+
+          <div class="art-item" data-description="<i>昔、昔。。。</i><br>
+            A farewell gift for my friend! Digitally drawn.">
+            <img src="art/maddy.png" alt="Maddy's cover">
+            <div class="art-caption">Photo album cover</div>
+          </div>
+
+          <div class="art-item" data-description="<i>昔、昔。。。</i><br>
+            This was created for the Tokyo Union Church Young Adults Group retreat in Atami, February 2024. 
+          The modern calligraphy was drawn by hand (using a modified brush in Photoshop).">
+            <img src="art/Recalibrate.png" alt="Artwork 3">
+            <div class="art-caption">Calligraphy</div>
+          </div>
+
+          
+      </section>
+
     </div>
+  </main>
+
+  <!-- Modal for image details -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close">&times;</span>
+
+    <button class="modal-arrow modal-prev" id="modal-prev" aria-label="Previous artwork">
+      &#10094;
+    </button>
+
+    <img id="modal-img" src="" alt="Artwork Detail">
+
+    <button class="modal-arrow modal-next" id="modal-next" aria-label="Next artwork">
+      &#10095;
+    </button>
+
+    <p id="modal-description" class="modal-description"></p>
+
   </div>
+</div>
+
+  <footer class="site-footer">
+    <p>Darey-Ann Louisville | 2026</p>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> |
+      <a href="https://github.com/Darey-Ann" target="_blank">GitHub</a> |
+      <a href="researchnotes/index.html" class="phd-link" target="_blank">Research Notes</a>
+    </div>
+  </footer>
 
   <script>
-    // Get the modal, image, and description elements
-    const modal = document.getElementById("myModal");
-    const modalImg = document.getElementById("modal-img");
-    const modalDesc = document.getElementById("modal-description");
-    const closeBtn = document.getElementsByClassName("close")[0];
+  // ---------- Modal ----------
+  const modal = document.getElementById("myModal");
+  const modalImg = document.getElementById("modal-img");
+  const modalDesc = document.getElementById("modal-description");
+  const closeBtn = document.querySelector(".close");
+  const prevBtn = document.getElementById("modal-prev");
+  const nextBtn = document.getElementById("modal-next");
+  const artItems = document.querySelectorAll(".art-item");
 
-    // Get all art images and set up click event
-    const artItems = document.querySelectorAll(".art-item");
-    artItems.forEach(item => {
-      item.onclick = function() {
-        // Open modal and set content
-        modal.style.display = "flex";
-        modalImg.src = this.src;
-        modalDesc.textContent = this.getAttribute("data-description");
-      };
-    });
+  let currentIndex = 0;
 
-    // Close the modal when the user clicks the "X" button
-    closeBtn.onclick = function() {
-      modal.style.display = "none";
-    };
+  // Show an artwork in the modal
+  function openArtwork(index) {
+    currentIndex = index;
+    const item = artItems[index];
+    const image = item.querySelector("img");
 
-    // Close the modal if the user clicks anywhere outside the modal
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    };
-  </script>
-   
-  </main>
+    modal.style.display = "flex";
+    modalImg.src = image.src;
+    modalImg.alt = image.alt;
+    modalDesc.innerHTML = item.dataset.description;
+
+    // Reset zoom when changing artwork
+    modalImg.classList.remove("zoomed");
+  }
+
+
+  // Open artwork when clicked
+  artItems.forEach((item, index) => {
+    item.addEventListener("click", () => openArtwork(index));
+  });
+
+  // Click image to zoom in/out
+  modalImg.addEventListener("click", () => {
+    modalImg.classList.toggle("zoomed");
+  });
+
+  // Navigate to previous/next artwork
+  function changeArtwork(direction) {
+    currentIndex = (currentIndex + direction + artItems.length) % artItems.length;
+    openArtwork(currentIndex);
+  }
+
   
-   
+  prevBtn.onclick = () => changeArtwork(-1);
+  nextBtn.onclick = () => changeArtwork(1);
 
+
+
+  // Close modal
+  closeBtn.onclick = () => modal.style.display = "none";
+
+  // Close when clicking outside the image
+  window.onclick = (event) => {
+    if (event.target === modal) modal.style.display = "none";
+  };
+
+  // Keyboard controls
+  document.addEventListener("keydown", (event) => {
+    if (modal.style.display !== "flex") return;
+
+    if (event.key === "ArrowLeft") changeArtwork(-1);
+    if (event.key === "ArrowRight") changeArtwork(1);
+    if (event.key === "Escape") modal.style.display = "none";
+  });
+
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll(".reveal");
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    revealEls.forEach(el => observer.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add("in-view"));
+  }
+
+
+  // ---------- Comic carousel ----------
+
+  const comicTrack = document.querySelector(".comic-track");
+  const comicNext = document.querySelector(".comic-next");
+  const comicPrev = document.querySelector(".comic-prev");
+  
+  let comicIndex = 0;
+  
+  function updateComic() {
+    const panelWidth = comicTrack.querySelector("img").offsetWidth + 12;
+    comicTrack.style.transform = `translateX(-${comicIndex * panelWidth}px)`;
+  }
+  
+  comicNext.addEventListener("click", () => {
+    if (comicIndex < 5) {
+      comicIndex++;
+    } else {
+      comicIndex = 0;
+    }
+    updateComic();
+  });
+  
+  comicPrev.addEventListener("click", () => {
+    if (comicIndex > 0) {
+      comicIndex--;
+    } else {
+      comicIndex = 5;
+    }
+    updateComic();
+  });
+  
+  window.addEventListener("resize", updateComic);
+  
+</script>
 
 </body>
-
-<footer style="background-color: #1e1e1e; color: #e0e0e0; text-align: center; padding: 20px;">
-  <p>Created by Darey-Ann Louisville | 2024</p>
-  <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> | 
-  <a href="https://github.com/Darey-Ann" target="_blank">GitHub</a>
-</footer>
-
 </html>
