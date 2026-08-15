@@ -40,6 +40,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
 
+  <!-- CSS PART-->
   <style>
     /* ---------- Tokens ---------- */
     
@@ -81,6 +82,7 @@
       html { scroll-behavior: auto; }
       * { animation: none !important; transition: none !important; }
     }
+
 
     body {
       font-family: var(--font);
@@ -156,6 +158,30 @@
     }
     nav.site-nav .links a.phd-link {
       border: 1px solid var(--border-strong);
+      
+    }
+
+
+    /* ---------- Logo Image Handler ---------- */
+    @media (max-width: 600px) {
+      .brand img {
+        content: url("main_art/mylogo.png");
+      }
+    }
+
+    /* ---------- Research Notes Button Handler ---------- */
+    .research-mobile {
+      display: none;
+    }
+    
+    @media (max-width: 600px) {
+      .research-full {
+        display: none;
+      }
+    
+      .research-mobile {
+        display: inline;
+      }
     }
 
     /* ---------- Layout helpers ---------- */
@@ -664,12 +690,16 @@
     <!-- <a href="#" class="brand"> <div class="stamp">DAREY<br>ANN</div> </a> -->
     <!-- <a href="#" class="brand"> <div class="stamp">デリー<br>アン</div> </a> -->
      <a href="#" class="brand"> <img src="main_art/mylogo.png" alt="" style="height: auto; max-height: 60px; max-width: 100%; width: auto;"> </a>
-    
     <div class="links">
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#art">Art</a>
-      <a href="researchnotes/" class="phd-link" target="_blank">Research Notes ↗</a>
+      <!-- <a href="researchnotes/" class="phd-link" target="_blank">Research Notes ↗</a> -->
+       <!-- says Research Notes for large screens and the emoji for small screen -->
+      <a href="researchnotes/" class="phd-link" target="_blank">
+        <span class="research-full">Research Notes ↗</span>
+        <span class="research-mobile">📝</span>
+      </a>
     </div>
   </nav>
 

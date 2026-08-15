@@ -1,26 +1,29 @@
 [
   {
-    "date": "2026-08-12",
-    "title": "First sensor prototypes arrived",
-    "text": "Spent the afternoon testing placement in the mock living room. The ambient light sensor is way more sensitive than the datasheet suggested — need to recalibrate before Thursday's pilot.",
+    "highlight": true,
+    "date": "2026-08-15",
+    "title": "Testing out a new creation",
+    "text": "Currently making progress on a light following robot...",
     "media": [
-      { "type": "image", "src": "images/future.png", "caption": "Unboxing the sensor kit" },
-      { "type": "image", "src": "images/ideao01.png", "caption": "Test placement, living room mockup" },
-      { "type": "video", "src": "images/temochimori.mp4", "caption": "Quick demo of the light response" }
+      { "type": "video", "src": "posts_images/2026-08-15/v02.mp4", "caption": "Breadboard protoype v02" },
+      { "type": "video", "src": "posts_images/2026-08-15/v04.mp4", "caption": "Breadboard protoype v04" }
     ]
   },
   {
-    "date": "2026-08-06",
-    "title": "Reading week: systems thinking in ecological design",
-    "text": "Three papers deep on feedback-loop framing for human-nature interaction. Starting to see a throughline with the trust-acceptance spectrum from my Master's work.",
+    "date": "2026-02-03",
+    "title": "Entrance Exams 😱",
+    "text": "Figuring out my research focus. I want to build something functional! Some snippets of my research theme development process presented during my entrance examination.",
     "media": [
-      { "type": "image", "src": "images/sensing.png", "caption": "Desk setup this week" }
+      { "type": "image", "src": "posts_images/2026-02-03/introduction.png", "caption": "From my very first proposal presentation" },
+      { "type": "image", "src": "posts_images/2026-02-03/scope01.png", "caption": "Scope direction 1" },
+      { "type": "image", "src": "posts_images/2026-02-03/scope02.png", "caption": "Scope direction 2" },
+      { "type": "image", "src": "posts_images/2026-02-03/originality.png", "caption": "Originality" }
     ]
   },
   {
-    "date": "2026-07-30",
-    "title": "Just some notes, no photos today",
-    "text": "Mostly admin and email today — ethics approval paperwork for the pilot study. Not glamorous but necessary.",
+    "date": "2026-04-01",
+    "title": "The start of a new journey...",
+    "text": "Passed the exams. I've officially started as a doctoral student at the Well-being Engineering Lab!",
     "media": []
   }
 ]
