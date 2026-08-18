@@ -61,21 +61,13 @@
   }
   a{color:inherit;}
   /* SET MAX-WIDTH OF THE ENTIRE PAGE -- OG 720px*/
-   .wrap{max-width:1000px;margin:0 auto;padding:0 24px 100px;} 
+   .wrap{max-width:1000px;margin:0 auto;padding:56px 24px 100px;} 
   /* .wrap{max-width:960px;margin:0 auto;padding:56px 24px 100px;} */
 
   nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:64px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.03em;color:var(--ink-soft);}
   nav a{text-decoration:none;}
   nav .back{border-bottom:1px solid transparent;}
   /* nav .back:hover{border-color:var(--hanko);color:var(--ink);} */
-
-  nav.site-nav .links a.is-current {
-  border: 1px solid var(--hanko);
-  color: var(--hanko);
-  background: rgba(253, 232, 230, 0.06);
-}
-
-
 
   .center-image {
     display: block;
@@ -221,20 +213,12 @@
 </head>
 <body>
 <div class="wrap">
-  <nav class="site-nav">
-    <a href="../" class="brand">
-      <img src="../main_art/mylogo_withslogan.png"
-           alt=""
-           style="height:auto; max-height:60px; max-width:100%; width:auto;">
-    </a>
-  
-    <div class="links">
-      <a href="../#about">About</a>
-      <a href="../#projects">Projects</a>
-      <a href="../#art">Art</a>
-      <a href="./" class="is-current">Notes</a>
-      <a href="../researchoutputs/">Research Outputs</a>
-    </div>
+  <nav>
+    <!-- <a class="back" href="/">← darey-ann.com</a> -->
+     <!-- <a class="back" href="https://darey-ann.com/"> <div class="stamp">デリー<br>アン</div>  </a> -->
+     <a class="back" href="https://darey-ann.com/">  <img src="../main_art/mylogo_withslogan.png" alt="" style="height: auto; max-height: 60px; max-width: 100%; width: auto;"> </a>
+    
+    <!-- <span>PHD LOG</span> -->
   </nav>
 
   <header class="hero">

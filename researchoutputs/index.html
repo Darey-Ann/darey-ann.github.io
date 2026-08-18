@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Research Outputs | Darey-Ann Louisville</title>
+
+  <!-- Basic metadata -->
+  <meta name="description" content="Conference presentations and papers by Darey-Ann Louisville, PhD student at the University of Tokyo.">
+  <meta name="author" content="Darey-Ann Louisville">
+  <meta name="keywords" content="Darey-Ann Louisville, University of Tokyo, UTokyo, PhD, research, publications, conferences, human-nature interaction, physiological computing">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../main_art/favicon.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://darey-ann.com/researchoutputs/">
+
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#0b0b0e">
+
+  <!-- Open Graph / social media preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Research Outputs | Darey-Ann Louisville">
+  <meta property="og:description" content="Conference presentations and papers by Darey-Ann Louisville, PhD student at the University of Tokyo.">
+  <meta property="og:url" content="https://darey-ann.com/research-outputs/">
+  <meta property="og:image" content="https://darey-ann.com/main_art/favicon.png">
+
+  <!-- Twitter / X preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Research Outputs | Darey-Ann Louisville">
+  <meta name="twitter:description" content="Conference presentations and papers by Darey-Ann Louisville, PhD student at the University of Tokyo.">
+  <meta name="twitter:image" content="https://darey-ann.com/main_art/favicon.png">
+
+  <!-- Fonts: Inter only, full weight range -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS PART -->
+  <style>
+    /* ---------- Tokens (matches main site) ---------- */
+    :root {
+      --bg: #0b0b0e;
+      --bg-elevated: #17171c;
+      --bg-elevated-2: #1d1d23;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --text: #ededf0;
+      --text-body: #c7c5cf;
+      --text-muted: #8f8c9b;
+      --accent: #a78bfa;
+      --accent-bright: #cabaff;
+      --accent-soft: rgba(167, 139, 250, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --maxw: 1000px;
+      --font: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+
+    body {
+      font-family: var(--font);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      letter-spacing: 0.1px;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% -10%, rgba(167, 139, 250, 0.10), transparent 45%),
+        radial-gradient(circle at 85% 0%, rgba(167, 139, 250, 0.06), transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-body);
+    }
+
+    ::selection {
+      background: var(--accent-soft);
+      color: var(--accent-bright);
+    }
+
+    a {
+      color: var(--accent-bright);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* ---------- Nav ---------- */
+    nav.site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 28px;
+      background: rgba(11, 11, 14, 0.75);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid var(--border);
+    }
+    nav.site-nav .brand {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      font-size: 0.95rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    nav.site-nav .brand:hover { color: var(--accent-bright); text-decoration: none; }
+    nav.site-nav .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: flex-end;
+    }
+    nav.site-nav .links a {
+      color: var(--text-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    nav.site-nav .links a:hover {
+      background: var(--accent-soft);
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+    nav.site-nav .links a.is-current {
+      border: 1px solid var(--border-strong);
+      color: var(--accent-bright);
+    }
+
+    @media (max-width: 600px) {
+      .brand img { content: url("../main_art/mylogo.png"); }
+    }
+
+    /* ---------- Layout helpers ---------- */
+    main { padding: 0 24px; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; }
+    section { margin-bottom: 96px; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    h2.section-title {
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin: 0 0 16px 0;
+    }
+
+    .lede {
+      max-width: 640px;
+      font-weight: 300;
+      font-size: 1.02rem;
+      color: var(--text-body);
+      margin: 0 0 40px 0;
+    }
+
+    /* ---------- Page header ---------- */
+    header.page-hero {
+      padding: 72px 24px 8px;
+      text-align: center;
+    }
+    header.page-hero .eyebrow { margin-bottom: 14px; }
+    header.page-hero h1 {
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      margin: 0 0 18px 0;
+      color: var(--text);
+    }
+    header.page-hero .tagline {
+      max-width: 560px;
+      margin: 0 auto;
+      font-weight: 300;
+      font-size: 1.02rem;
+      color: var(--text-body);
+    }
+
+    /* ---------- Reveal-on-scroll ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    /* ---------- Output cards ---------- */
+    .output-card {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 32px;
+    }
+    .output-card:last-child { margin-bottom: 0; }
+    .output-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .output-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+    .output-date {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .output-card h3 {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.005em;
+      margin: 0 0 10px 0;
+      color: var(--accent-bright);
+    }
+    .output-card h3 a { color: inherit; }
+    .output-card h3 a:hover { color: var(--accent); }
+    .output-authors {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin: 0 0 18px 0;
+    }
+    .output-card p.blurb { margin: 0 0 20px 0; }
+
+    details {
+      text-align: center;
+    }
+    
+    .output-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .output-links a {
+      display: inline-block;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 8px 18px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .output-links a:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+    .output-keywords {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 22px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer.site-footer {
+      background-color: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 0.9rem;
+    }
+    footer.site-footer p { margin: 0 0 10px 0; }
+    footer.site-footer .footer-links a { margin: 0 8px; }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="../" class="brand"><img src="../main_art/mylogo.png" alt="" style="height:auto;max-height:60px;max-width:100%;width:auto;"></a>
+    <div class="links">
+      <a href="../#about">About</a>
+      <a href="../#projects">Projects</a>
+      <a href="../#art">Art</a>
+      <a href="../researchnotes/">Notes</a>
+      <a href="./" class="is-current">Research Outputs</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="wrap">
+
+      <header class="page-hero reveal">
+        <span class="eyebrow">Publications &amp; Presentations</span>
+        <h1>Research Outputs</h1>
+        <!-- <p class="tagline">Conferences, papers, and posters from my PhD work — a running list, added to as things get accepted, presented, or published.</p>-->
+      </header>
+
+      <section id="outputs" class="reveal">
+
+        <!-- ============================================= -->
+        <!-- OUTPUT ENTRY — copy this whole <article> block -->
+        <!-- to add a new conference/paper, then edit the   -->
+        <!-- tag, date, title, authors, blurb, and links.   -->
+        <!-- Newest entries go at the top of the section.   -->
+        <!-- ============================================= -->
+        <article class="output-card">
+          <div class="output-meta">
+            <span class="output-tag"><a href="https://2026.alife.org/" target="_blank">ALIFE 2026 · Late-Breaking Abstract and Poster Presentation</a></span>
+            
+            <span class="output-date">August 2026 · lb127s1</span>
+            
+          </div>
+          
+          <h3><a href="papers/LB127_TEMOCHIMORI.pdf" target="_blank">TEMOCHIMORI: Expressing Live Heart Rate through a Living Kokedama</a></h3>
+          <p class="output-authors">Satoshi Nakagawa, Darey-Ann Louisville, Reki Ueda, Kodai Masamitsu, Misato Nihei — Well-being Engineering Lab, Graduate School of Information Science and Technology, The University of Tokyo</p>
+          
+          <img src="future_darkbg.png" alt="Temochimori illustration" style="width: 200px; height: auto; display: block; margin: 0 auto;">
+          
+          <p class="blurb">TEMOCHIMORI is a palm sized kokedama (“moss ballˮ) whose appearance reflects its wearerʼs live heart rate.
+             Physiological biofeedback usually presents bodily change as numbers or graphs, leaving unclear whether a living display changes the experience.
+             We present TEMOCHIMORI—literally “holding a forest in your handˮ in Japanese—a living interface that visualizes your inner state, giving you an
+             opportunity to feel connected with nature while inviting self-awareness.</p>
+
+          <!-- <img src="LB127_TEMOCHIMORI.png" style="width: 90%; height: auto; display: block; margin: 0 auto; border: none;"> -->
+           <details>
+             <summary>Click to expand/collapse poster</summary>
+               <a href="LB127_TEMOCHIMORI.png" target="_blank">
+                   <img src="LB127_TEMOCHIMORI.png" style="width:90%; max-width:100%; height:auto; cursor:zoom-in;">
+               </a>
+            </details>
+
+          <p class="output-keywords">Human–Nature Interaction · Physiological Computing · Biofeedback · Living Well-being Interfaces</p>
+        </article>
+
+        <!-- Next output entries will go here -->
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Darey-Ann Louisville | 2026</p>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> |
+      <a href="https://github.com/Darey-Ann" target="_blank">GitHub</a> |
+      <a href="../researchnotes/">Research Notes</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Scroll reveal (same behavior as main site) ----------
+    const revealEls = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      revealEls.forEach(el => observer.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add("in-view"));
+    }
+  </script>
+
+</body>
+</html>

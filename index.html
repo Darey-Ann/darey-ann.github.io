@@ -134,6 +134,7 @@
       font-size: 0.95rem;
       text-decoration: none;
       white-space: nowrap;
+      
     }
     nav.site-nav .brand:hover { color: var(--accent-bright); text-decoration: none; }
     nav.site-nav .links {
@@ -159,6 +160,11 @@
     nav.site-nav .links a.phd-link {
       border: 1px solid var(--border-strong);
       
+    }
+
+    .back-to-top {
+      text-align: center;
+      margin: 32px 0;
     }
 
 
@@ -692,14 +698,22 @@
      <a href="#" class="brand"> <img src="main_art/mylogo.png" alt="" style="height: auto; max-height: 60px; max-width: 100%; width: auto;"> </a>
     <div class="links">
       <a href="#about">About</a>
+
       <a href="#projects">Projects</a>
+
       <a href="#art">Art</a>
+
+
       <!-- <a href="researchnotes/" class="phd-link" target="_blank">Research Notes ↗</a> -->
+       
        <!-- says Research Notes for large screens and the emoji for small screen -->
-      <a href="researchnotes/" class="phd-link" target="_blank">
-        <span class="research-full">Research Notes ↗</span>
+      <a href="researchnotes/" target="_blank">
+        <span class="research-full"> Notes </span>
         <span class="research-mobile">📝</span>
       </a>
+
+      <a href="researchoutputs/"  target="_blank">Research Outputs </a>
+
     </div>
   </nav>
 
@@ -1009,8 +1023,13 @@
 
   </div>
 </div>
-
+ 
+  
+    <div class="back-to-top">
+      <a href="#">back to top ↑</a>
+    </div>
   <footer class="site-footer">
+    
     <p>Darey-Ann Louisville | 2026</p>
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/dlouisville/" target="_blank">LinkedIn</a> |
