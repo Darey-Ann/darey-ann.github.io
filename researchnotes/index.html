@@ -61,19 +61,59 @@
   }
   a{color:inherit;}
   /* SET MAX-WIDTH OF THE ENTIRE PAGE -- OG 720px*/
-   .wrap{max-width:1000px;margin:0 auto;padding:0 24px 100px;} 
+   .wrap{max-width:1000px;margin:0 auto;padding:48px 24px 100px;} 
   /* .wrap{max-width:960px;margin:0 auto;padding:56px 24px 100px;} */
 
-  nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:64px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.03em;color:var(--ink-soft);}
-  nav a{text-decoration:none;}
-  nav .back{border-bottom:1px solid transparent;}
-  /* nav .back:hover{border-color:var(--hanko);color:var(--ink);} */
-
-  nav.site-nav .links a.is-current {
-  border: 1px solid var(--hanko);
-  color: var(--hanko);
-  background: rgba(253, 232, 230, 0.06);
-}
+  /* ---------- Nav — same shape as the main page, paper + hanko colours ----------
+     NOT sticky: it scrolls away with the page, like it did before.
+     To make it stick to the top instead, add back:
+       position:sticky; top:0; z-index:20;
+       background:rgba(247, 245, 240, 0.82);
+       backdrop-filter:blur(14px) saturate(140%);
+       -webkit-backdrop-filter:blur(14px) saturate(140%);
+  */
+  nav.site-nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:8px 28px;
+    background:var(--paper);
+    border-bottom:1px solid var(--card-border);
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+  nav.site-nav .brand{
+    display:flex;
+    align-items:center;
+    /* flex-shrink:0; */
+    text-decoration:none;
+  }
+  nav.site-nav .links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px;
+    justify-content:flex-end;
+  }
+  nav.site-nav .links a{
+    color:var(--ink-soft);
+    font-size:0.85rem;
+    font-weight:500;
+    letter-spacing:0.02em;
+    padding:8px 14px;
+    border:1px solid transparent;   /* keeps every pill the same height as .is-current */
+    border-radius:999px;
+    text-decoration:none;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  nav.site-nav .links a:hover{
+    background:rgba(178, 58, 46, 0.10);   /* --hanko at 10% */
+    color:var(--hanko);
+  }
+  nav.site-nav .links a.is-current{
+    border-color:var(--hanko);
+    color:var(--hanko);
+    background:rgba(178, 58, 46, 0.06);
+  }
 
 
 
@@ -126,6 +166,9 @@
   }
   .entry h3{font-family:'Newsreader',serif;font-weight:500;font-size:20px;margin:0 0 8px;}
   .entry p{color:var(--ink-soft);font-size:14.5px;line-height:1.65;margin:0 0 14px;white-space:pre-wrap;}
+  /* THIS PART MAKES LINKS HANKO RED*/
+  .entry p a{color:var(--hanko);text-decoration:none;border-bottom:1px solid var(--hanko);}
+  .entry p a:hover{background:rgba(178,58,46,0.07);}
 
 
 
@@ -183,6 +226,19 @@
   }
     /* end MOSAIC MEDIA GRID */
   
+    /* ---------- To handle what happens when screen is smaller ----------  */
+  .research-mobile{display:none;}          /* ← this one hides the plain logo by default */
+
+  @media (max-width: 600px) {
+      .research-full {
+        display: none;
+      }
+    
+      .research-mobile {
+        display: block;
+      }
+    }
+  
 
   /* LIGHT BOX OVERLAY CSS */
   .lightbox-overlay{
@@ -205,9 +261,9 @@
 
   /* ---------- Footer ---------- */
     footer.site-footer {
-      background-color: var(--bg-elevated);
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
+      background-color: var(--card); /* var(--bg-elevated);*/ 
+      border-top: 1px solid var(--card-border); /* var(--border);*/ 
+      color: var(--ink-soft); /* var(--text-muted);*/
       text-align: center;
       padding: 36px 24px;
       font-size: 0.9rem;
@@ -220,23 +276,23 @@
 
 </head>
 <body>
-<div class="wrap">
-  <nav class="site-nav">
-    <a href="../" class="brand">
-      <img src="../main_art/mylogo_withslogan.png"
-           alt=""
-           style="height:auto; max-height:60px; max-width:100%; width:auto;">
-    </a>
-  
-    <div class="links">
-      <a href="../#about">About</a>
-      <a href="../#projects">Projects</a>
-      <a href="../#art">Art</a>
-      <a href="./" class="is-current">Notes</a>
-      <a href="../researchoutputs/">Research Outputs</a>
-    </div>
-  </nav>
+<nav class="site-nav">
+  <a href="../" class="brand">
+    <!-- Logo with slogan for large screens and plain logo for small screen -->
+    <span class="research-full"> <img src="../main_art/mylogo_withslogan.png" alt="" style="height:auto; max-height:60px; max-width:100%; width:auto;"> </span>
+    <span class="research-mobile"><img src="../main_art/mylogo.png" alt="" style="height:auto; max-height:60px; max-width:100%; width:auto;"> </span> 
+  </a>
 
+  <div class="links">
+    <a href="../#about">About</a>
+    <a href="../#projects">Projects</a>
+    <a href="../#art">Art</a>
+    <a href="./" class="is-current">Notes</a>
+    <a href="../researchoutputs/">Research Outputs</a>
+  </div>
+</nav>
+
+<div class="wrap">
   <header class="hero">
     <!-- <div class="stamp">DAREY<br>ANN</div> -->
     <div>
@@ -270,7 +326,7 @@
   <footer class="site-footer">
     <p>Research Notes | Darey-Ann | 2026</p>
     <div class="footer-links">
-      <a href="#">Back to top ^^^</a> 
+      <a href="#">Back to top ↑</a> 
     </div>
   </footer>
 
@@ -326,6 +382,11 @@
 
   /* Renders the feed (all posts, or just highlights if the toggle is on) — 
      called from loadPosts() and again whenever the heart toggle is clicked */
+     
+     /* extra notes ~Line 351 */
+     /* <p>${escapeHtml(post.text)}</p> deliberately turns <a href="…"> into &lt;a href="…"&gt; */
+     /* <p>${post.html ? post.text : escapeHtml(post.text)}</p> opts in */
+
   function renderFeed() {
     const feed = document.getElementById("feed");
     const posts = showHighlightsOnly ? allPosts.filter(p => p.highlight) : allPosts;
@@ -339,7 +400,8 @@
         </div>
         
         <h3>${escapeHtml(post.title)}</h3>
-        <p>${escapeHtml(post.text)}</p>
+
+        <p>${post.html ? post.text : escapeHtml(post.text)}</p>
         ${renderMedia(post.media || [])}
       </li>
     `).join("");

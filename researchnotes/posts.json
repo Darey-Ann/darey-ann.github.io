@@ -1,6 +1,17 @@
 [
   {
     "highlight": true,
+    "date": "2026-08-26",
+    "title": "And another secret new project 🤫",
+    "text": "<a href=\"../arborality/\" target=\"_blank\">😶‍🌫️ Early Prototype 😶‍🌫️</a>",
+    "html": true,
+    "media": [
+      { "type": "image", "src": "posts_images/2026-08-26/closeup.gif", "caption": "Closeup of a digital Sakura tree growing. I was following a blender tutorial and decided that I wanted to make a Sakura tree, so I got some help from Claude." },
+      { "type": "image", "src": "posts_images/2026-08-26/bloom.gif", "caption": "Full view" }
+    ]
+  },
+  {
+    "highlight": true,
     "date": "2026-08-15",
     "title": "Testing out a new creation",
     "text": "Currently making progress on a light following robot...",
