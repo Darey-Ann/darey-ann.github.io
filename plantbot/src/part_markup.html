@@ -1,0 +1,166 @@
+<title>PlantBot Desk Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ink:#EAF2EC;
+    --ink-dim:#93A79A;
+    --ink-faint:#5F7268;
+    --ground:#0B100E;
+    --panel:rgba(16,26,21,.72);
+    --panel-solid:#101A15;
+    --hair:rgba(215,236,222,.14);
+    --hair-strong:rgba(215,236,222,.28);
+    --happy:#54E066;
+    --low:#FFB13C;
+    --r:5px;
+    --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+    --font-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  #stage{position:fixed;inset:0}
+  canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+  canvas.dragging{cursor:grabbing}
+
+  #fallback{
+    position:absolute;inset:0;display:none;place-items:center;padding:2rem;text-align:center;
+    font-family:var(--font-mono);color:var(--ink-dim);font-size:.85rem;line-height:1.7;
+  }
+  #fallback.on{display:grid}
+
+  .hud{position:fixed;z-index:2;pointer-events:none}
+  .hud > *{pointer-events:auto}
+
+  /* ---- brand ---- */
+  .hud--brand{top:clamp(16px,3vw,30px);left:clamp(16px,3vw,30px);max-width:min(46vw,340px)}
+  .eyebrow{
+    margin:0 0 .55rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.19em;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  h1{
+    margin:0;font-family:var(--font-display);font-weight:700;
+    font-size:clamp(1.9rem,5.2vw,2.9rem);letter-spacing:-.02em;line-height:.95;
+    text-wrap:balance;
+  }
+  .sub{
+    margin:.5rem 0 0;font-size:.8rem;line-height:1.5;color:var(--ink-dim);max-width:24ch;
+  }
+
+  /* ---- instrument panel ---- */
+  .hud--panel{
+    left:clamp(16px,3vw,30px);bottom:clamp(16px,3vw,30px);
+    width:min(90vw,296px);
+  }
+  .panel{
+    display:flex;flex-direction:column;gap:14px;
+    padding:15px 16px 14px;border:1px solid var(--hair);border-radius:var(--r);
+    background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 18px 44px -22px rgba(0,0,0,.9);
+  }
+  .state-btn{
+    display:flex;align-items:center;gap:10px;width:100%;
+    padding:10px 12px;border:1px solid var(--hair-strong);border-radius:4px;
+    background:rgba(255,255,255,.035);color:var(--ink);
+    font-family:var(--font-body);font-size:.87rem;font-weight:600;letter-spacing:-.01em;
+    text-align:left;cursor:pointer;
+    transition:background .18s ease,border-color .18s ease;
+  }
+  .state-btn:hover{background:rgba(255,255,255,.075);border-color:rgba(215,236,222,.42)}
+  .state-btn:focus-visible{outline:2px solid var(--mood,var(--happy));outline-offset:2px}
+  .dot{
+    width:9px;height:9px;border-radius:50%;flex:none;
+    background:var(--mood,var(--happy));
+    box-shadow:0 0 12px 1px var(--mood,var(--happy));
+    transition:background .4s ease,box-shadow .4s ease;
+  }
+  .swap{margin-left:auto;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400}
+  .state-note{
+    margin:0;font-size:.755rem;line-height:1.55;color:var(--ink-dim);min-height:2.4em;
+  }
+
+  .tele{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:0;
+    background:var(--hair);border:1px solid var(--hair);border-radius:4px;overflow:hidden;
+  }
+  .tele > div{background:var(--panel-solid);padding:8px 9px 9px}
+  .tele dt{
+    font-family:var(--font-mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:4px;
+  }
+  .tele dd{
+    margin:0;font-family:var(--font-mono);font-size:.83rem;font-weight:500;
+    font-variant-numeric:tabular-nums;color:var(--ink);
+  }
+  #tHue{color:var(--mood,var(--happy));transition:color .4s ease}
+
+  .toggles{display:flex;gap:16px;padding-top:2px}
+  .toggles label{
+    display:flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--font-mono);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .toggles label:hover{color:var(--ink)}
+  .toggles input{accent-color:#54E066;width:13px;height:13px;margin:0;cursor:pointer}
+  .toggles input:focus-visible{outline:2px solid var(--hair-strong);outline-offset:2px}
+
+  /* ---- corner notes ---- */
+  .note{
+    font-family:var(--font-mono);font-size:.61rem;letter-spacing:.09em;line-height:1.7;
+    color:var(--ink-dim);
+    text-shadow:0 1px 10px rgba(6,10,8,.92),0 0 3px rgba(6,10,8,.9);
+  }
+  .hud--hint{top:clamp(16px,3vw,30px);right:clamp(16px,3vw,30px);text-align:right}
+  .hud--next{bottom:clamp(16px,3vw,30px);right:clamp(16px,3vw,30px);text-align:right;max-width:34ch}
+  .hud--next b{color:var(--ink-dim);font-weight:400}
+
+  @media (max-width:720px){
+    .hud--hint{display:none}
+    .hud--next{display:none}
+    .hud--panel{width:calc(100vw - 32px)}
+    .tele{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+
+<div id="stage">
+  <canvas id="c"></canvas>
+  <div id="fallback">This mockup needs WebGL2.<br>Try a desktop browser, or enable hardware acceleration.</div>
+</div>
+
+<header class="hud hud--brand">
+  <p class="eyebrow">Concept mockup &middot; iteration 1</p>
+  <h1>PlantBot</h1>
+  <p class="sub">Solar-powered, sun-seeking, ambient. Modelled from the leaf sketch and BOM schematic.</p>
+</header>
+
+<section class="hud hud--panel">
+  <div class="panel">
+    <button id="toggle" class="state-btn" type="button" aria-live="polite">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="stateName">Sunlit</span>
+      <span class="swap">Switch</span>
+    </button>
+    <p class="state-note" id="stateNote">Charged and content. Leaves lift toward the light and the underside LEDs run green.</p>
+    <dl class="tele">
+      <div><dt>Charge</dt><dd id="tBat">86%</dd></div>
+      <div><dt>Light</dt><dd id="tLux">940 lx</dd></div>
+      <div><dt>Underglow</dt><dd id="tHue">#54E066</dd></div>
+    </dl>
+    <div class="toggles">
+      <label><input type="checkbox" id="sway" checked> Leaf sway</label>
+      <label><input type="checkbox" id="spin"> Auto-orbit</label>
+    </div>
+  </div>
+</section>
+
+<aside class="hud hud--hint note">Drag to orbit &middot; scroll to zoom<br>right-drag or two fingers to pan</aside>
+<aside class="hud hud--next note"><b>Next iteration:</b> day-cycle scrubber, moving sun,<br>battery drain, servo tracking sweep</aside>

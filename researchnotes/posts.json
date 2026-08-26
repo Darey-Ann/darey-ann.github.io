@@ -2,6 +2,17 @@
   {
     "highlight": true,
     "date": "2026-08-26",
+    "title": "Light following robot update! 🌱",
+    "text": "So far, I had some sketches and a prototype. For inspiration I decided to mock it up <a href=\"../plantbot/\" target=\"_blank\">HERE</a>",
+    "html": true,
+    "media": [
+      { "type": "image", "src": "posts_images/2026-08-26/plantbotpreview.png", "caption": "I'm lowkey highkey mad that Claude is so good at this and I didn't code it myself." },
+      { "type": "image", "src": "posts_images/2026-08-26/concept.png", "caption": "Original concept sketches by Darey-Ann Louisvile | August 2026" }
+    ]
+  },
+  {
+    "highlight": true,
+    "date": "2026-08-26",
     "title": "And another secret new project 🤫",
     "text": "<a href=\"../arborality/\" target=\"_blank\">😶‍🌫️ Early Prototype 😶‍🌫️</a>",
     "html": true,
