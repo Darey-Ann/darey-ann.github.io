@@ -3,7 +3,7 @@
     "highlight": true,
     "date": "2026-08-26",
     "title": "Light following robot update! 🌱",
-    "text": "So far, I had some sketches and a prototype (the light following robot). For inspiration I decided to mock it up <a href=\"../plantbot/\" target=\"_blank\">HERE</a>",
+    "text": "So far, I had some sketches and a prototype. For inspiration I decided to mock it up <a href=\"../plantbot/\" target=\"_blank\">HERE</a>",
     "html": true,
     "media": [
       { "type": "image", "src": "posts_images/2026-08-26/plantbotpreview.png", "caption": "Render by Claude Opus 5. <br>I'm lowkey highkey mad that Claude is so good at this and I didn't code it myself." },
