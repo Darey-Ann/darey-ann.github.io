@@ -1,0 +1,263 @@
+<title>PlantBot Leaf Family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ink:#EAF2EC;
+    --ink-dim:#93A79A;
+    --ink-faint:#5F7268;
+    --ground:#0B100E;
+    --panel:rgba(16,26,21,.72);
+    --panel-solid:#101A15;
+    --hair:rgba(215,236,222,.14);
+    --hair-strong:rgba(215,236,222,.28);
+    --happy:#54E066;
+    --low:#FFB13C;
+    --r:5px;
+    --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+    --font-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  #stage{position:fixed;inset:0}
+  canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+  canvas.dragging{cursor:grabbing}
+
+  #fallback{
+    position:absolute;inset:0;display:none;place-items:center;padding:2rem;text-align:center;
+    font-family:var(--font-mono);color:var(--ink-dim);font-size:.85rem;line-height:1.7;
+  }
+  #fallback.on{display:grid}
+
+  .hud{position:fixed;z-index:2;pointer-events:none}
+  .hud > *{pointer-events:auto}
+
+  /* ---- brand ---- */
+  .hud--brand{top:clamp(16px,3vw,30px);left:clamp(16px,3vw,30px);max-width:min(46vw,340px)}
+  .eyebrow{
+    margin:0 0 .55rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.19em;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  h1{
+    margin:0;font-family:var(--font-display);font-weight:700;
+    font-size:clamp(1.9rem,5.2vw,2.9rem);letter-spacing:-.02em;line-height:.95;
+    text-wrap:balance;
+  }
+  .sub{
+    margin:.5rem 0 0;font-size:.8rem;line-height:1.5;color:var(--ink-dim);max-width:24ch;
+  }
+
+  /* ---- instrument panel ---- */
+  .hud--panel{
+    left:clamp(16px,3vw,30px);bottom:clamp(16px,3vw,30px);
+    width:min(90vw,318px);
+    max-height:calc(100vh - 2*clamp(16px,3vw,30px));
+    display:flex;flex-direction:column;align-items:flex-start;gap:7px;
+  }
+  .panel{
+    display:flex;flex-direction:column;gap:14px;width:100%;
+    min-height:0;overflow:auto;
+    padding:15px 16px 14px;border:1px solid var(--hair);border-radius:var(--r);
+    background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 18px 44px -22px rgba(0,0,0,.9);
+  }
+
+  /* ---- fold the controls away to see the render ----
+     One button, two jobs. Open: a close chip on the panel's top-right corner.
+     Folded: the panel is gone, so the same button becomes the pill that brings
+     it back, sitting where the panel's bottom-left corner was.               */
+  .caret{
+    display:flex;align-items:center;justify-content:center;gap:8px;flex:none;
+    border:1px solid var(--hair);
+    background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 12px 30px -20px rgba(0,0,0,.9);
+    color:var(--ink-dim);cursor:pointer;
+    font-family:var(--font-mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;
+    transition:color .16s ease,border-color .16s ease,background .16s ease;
+  }
+  .caret:hover{color:var(--ink);border-color:var(--hair-strong)}
+  .caret:focus-visible{outline:2px solid var(--hair-strong);outline-offset:2px}
+  .caret .chev{width:11px;height:8px;flex:none;transition:transform .22s ease}
+  .caret .ex{width:11px;height:11px;flex:none}
+  .caret .dot{width:8px;height:8px}
+
+  /* open: 28px close chip straddling the panel's top-right corner */
+  :root:not(.hud-min) .caret{
+    position:absolute;top:-12px;right:-12px;z-index:1;
+    width:28px;height:28px;padding:0;gap:0;border-radius:50%;
+    background:var(--panel-solid);
+  }
+  :root:not(.hud-min) .caret:hover{background:#16241d}
+  :root:not(.hud-min) .caret .dot,
+  :root:not(.hud-min) .caret .label,
+  :root:not(.hud-min) .caret .chev{display:none}
+
+  /* folded: back to a pill in normal flow */
+  :root.hud-min .caret{padding:7px 11px;border-radius:4px}
+  :root.hud-min .caret .ex{display:none}
+  :root.hud-min .caret .chev{transform:rotate(180deg)}
+  :root.hud-min .hud--panel .panel{display:none}
+  .state-btn{
+    display:flex;align-items:center;gap:10px;width:100%;
+    padding:10px 12px;border:1px solid var(--hair-strong);border-radius:4px;
+    background:rgba(255,255,255,.035);color:var(--ink);
+    font-family:var(--font-body);font-size:.87rem;font-weight:600;letter-spacing:-.01em;
+    text-align:left;cursor:pointer;
+    transition:background .18s ease,border-color .18s ease;
+  }
+  .state-btn:hover{background:rgba(255,255,255,.075);border-color:rgba(215,236,222,.42)}
+  .state-btn:focus-visible{outline:2px solid var(--mood,var(--happy));outline-offset:2px}
+  .dot{
+    width:9px;height:9px;border-radius:50%;flex:none;
+    background:var(--mood,var(--happy));
+    box-shadow:0 0 12px 1px var(--mood,var(--happy));
+    transition:background .4s ease,box-shadow .4s ease;
+  }
+  .swap{margin-left:auto;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400}
+  .state-note{
+    margin:0;font-size:.755rem;line-height:1.55;color:var(--ink-dim);min-height:2.4em;
+  }
+
+  .tele{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:0;
+    background:var(--hair);border:1px solid var(--hair);border-radius:4px;overflow:hidden;
+  }
+  .tele > div{background:var(--panel-solid);padding:8px 9px 9px}
+  .tele dt{
+    font-family:var(--font-mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--ink-faint);margin-bottom:4px;
+  }
+  .tele dd{
+    margin:0;font-family:var(--font-mono);font-size:.83rem;font-weight:500;
+    font-variant-numeric:tabular-nums;color:var(--ink);
+  }
+  #tHue{color:var(--mood,var(--happy));transition:color .4s ease}
+
+  /* ---- chip groups: leaf module + size ---- */
+  .group{display:flex;flex-direction:column;gap:6px}
+  .grouphead{
+    font-family:var(--font-mono);font-size:.55rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:4px}
+  .chips.muted{opacity:.32;pointer-events:none}
+  .chip{
+    flex:1 1 auto;padding:6px 8px;border:1px solid var(--hair);border-radius:3px;
+    background:rgba(255,255,255,.025);color:var(--ink-dim);
+    font-family:var(--font-body);font-size:.735rem;font-weight:500;letter-spacing:-.005em;
+    cursor:pointer;white-space:nowrap;
+    transition:background .16s ease,border-color .16s ease,color .16s ease;
+  }
+  .chip:hover{background:rgba(255,255,255,.075);color:var(--ink)}
+  .chip:focus-visible{outline:2px solid var(--hair-strong);outline-offset:2px}
+  .chip.on{
+    background:rgba(84,224,102,.10);border-color:rgba(84,224,102,.55);color:var(--ink);
+  }
+  .leafnote{
+    margin:0;font-size:.735rem;line-height:1.5;color:var(--ink-dim);min-height:3em;
+  }
+  .specline{
+    margin:0;font-family:var(--font-mono);font-size:.615rem;letter-spacing:.04em;
+    color:var(--ink-faint);font-variant-numeric:tabular-nums;
+  }
+
+  .toggles{display:flex;gap:14px;padding-top:2px;flex-wrap:wrap}
+  .toggles label{
+    display:flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--font-mono);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .toggles label:hover{color:var(--ink)}
+  .toggles input{accent-color:#54E066;width:13px;height:13px;margin:0;cursor:pointer}
+  .toggles input:focus-visible{outline:2px solid var(--hair-strong);outline-offset:2px}
+
+  /* ---- corner notes ---- */
+  .note{
+    font-family:var(--font-mono);font-size:.61rem;letter-spacing:.09em;line-height:1.7;
+    color:var(--ink-dim);
+    text-shadow:0 1px 10px rgba(6,10,8,.92),0 0 3px rgba(6,10,8,.9);
+  }
+  .hud--hint{top:clamp(16px,3vw,30px);right:clamp(16px,3vw,30px);text-align:right}
+  .hud--next{bottom:clamp(16px,3vw,30px);right:clamp(16px,3vw,30px);text-align:right;max-width:34ch}
+  .hud--next b{color:var(--ink-dim);font-weight:400}
+
+  @media (max-width:720px){
+    .hud--hint{display:none}
+    .hud--next{display:none}
+    .hud--panel{width:calc(100vw - 32px)}
+    /* on a phone, folding the controls away clears the title too */
+    .hud--brand{transition:opacity .22s ease}
+    :root.hud-min .hud--brand{opacity:0;pointer-events:none}
+    .tele{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+
+<div id="stage">
+  <canvas id="c"></canvas>
+  <div id="fallback">This mockup needs WebGL2.<br>Try a desktop browser, or enable hardware acceleration.</div>
+</div>
+
+<header class="hud hud--brand">
+  <p class="eyebrow">Concept mockup &middot; iteration 2 &middot; leaf family</p>
+  <h1>PlantBot</h1>
+  <p class="sub">One body, five leaf modules, four sizes — desk companion up to human height.</p>
+</header>
+
+<section class="hud hud--panel">
+  <div class="panel" id="panelBody">
+    <button id="toggle" class="state-btn" type="button" aria-live="polite">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="stateName">Sunlit</span>
+      <span class="swap">Switch</span>
+    </button>
+    <p class="state-note" id="stateNote">Charged and content. Leaves lift toward the light and the underside LEDs run green.</p>
+
+    <div class="group">
+      <span class="grouphead">Leaf module</span>
+      <div class="chips" id="speciesRow"></div>
+      <p class="leafnote" id="leafNote"></p>
+    </div>
+
+    <div class="group">
+      <span class="grouphead">Size</span>
+      <div class="chips" id="sizeRow"></div>
+      <p class="specline" id="specLine"></p>
+    </div>
+
+    <dl class="tele">
+      <div><dt>Charge</dt><dd id="tBat">86%</dd></div>
+      <div><dt>Light</dt><dd id="tLux">940 lx</dd></div>
+      <div><dt>Underglow</dt><dd id="tHue">#54E066</dd></div>
+    </dl>
+    <div class="toggles">
+      <label><input type="checkbox" id="sway" checked> Leaf sway</label>
+      <label><input type="checkbox" id="spin"> Auto-orbit</label>
+      <label><input type="checkbox" id="lineup"> Line-up</label>
+    </div>
+  </div>
+  <button id="panelToggle" class="caret" type="button"
+          aria-expanded="true" aria-controls="panelBody" aria-label="Hide the controls">
+    <span class="dot" aria-hidden="true"></span>
+    <span class="label" id="caretLabel">Controls</span>
+    <svg class="chev" viewBox="0 0 12 8" aria-hidden="true" focusable="false">
+      <path d="M1 1.6 6 6.4 11 1.6" fill="none" stroke="currentColor"
+            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <svg class="ex" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+      <path d="M2 2 10 10M10 2 2 10" fill="none" stroke="currentColor"
+            stroke-width="1.7" stroke-linecap="round"></path>
+    </svg>
+  </button>
+</section>
+
+<aside class="hud hud--hint note">Drag to orbit &middot; scroll to zoom<br>right-drag or two fingers to pan</aside>
+<aside class="hud hud--next note"><b>Next iteration:</b> day-cycle scrubber, moving sun, battery drain,<br>servo tracking sweep, and the fan leaf actually detaching</aside>
