@@ -239,9 +239,16 @@
 
     /* ---------- Hero ---------- */
     header.hero {
+      display: flex;
       padding: 96px 24px 64px;
-      text-align: center;
+      text-align: left;
       position: relative;
+      /* additions to center new format */
+      align-items: center;
+      justify-content: center;  /* centers the whole two-column group on the page */
+      column-gap: 48px;         /* space between text and image side-by-side */
+      row-gap: 0px;            /* space when they stack on narrow screens */
+      flex-wrap: wrap; 
     }
     header.hero h1 {
       font-family: var(--font);
@@ -254,6 +261,7 @@
     }
     header.hero .subheader {
       display: block;
+      text-align: left;
       font-size: 0.5em; /* 1.05rem; */
       font-weight: 300; /* 200 */
       letter-spacing: 0.12em; /* 0.35em */
@@ -262,7 +270,8 @@
     }
     header.hero .tagline {
       max-width: 520px;
-      margin: 28px auto 0; /* margin: 28px auto 0; */
+      text-align: left;
+      
       font-weight: 300;
       font-size: 1.02rem;
       color: var(--text-body);
@@ -719,22 +728,21 @@
   </nav>
 
   <header class="hero">
-    <h1>
-      Darey-Ann Louisville
-      <span class="subheader">ルイヴィル・デリーアン</span>
-    </h1>
-    <p class="tagline"><i>Surinamese PhD student at the University of Tokyo, researching how to use technology to connect deeper with nature.</i></p>
-    
+    <div class="hero-text">
+      <h1>
+        Darey-Ann Louisville
+        <span class="subheader">ルイヴィル・デリーアン</span>
+      </h1>
+      <p class="tagline"><i>Surinamese PhD student at the University of Tokyo, researching how to use technology to connect deeper with nature.</i></p>
+    </div>
   
     <div class="research-postit-container">
       <a href="researchnotes/" class="research-postit" > <!-- target="_blank" -->
-        <img src="main_art/post_it01.png" alt="">
+        <img src="main_art/post_it01.png" alt="" style="width: 150%" >
         <!-- <span>My<br>Research<br>Notes</span> -->
       </a>
     </div>
-    
-
-
+  
   
   </header>
 
@@ -927,6 +935,7 @@
         <article class="project-card">
           <div class="project-meta">
             <span class="project-tag">Creative Coding | Exhibition Project</span>
+            <span class="project-date">November 2024</span>
           </div>
           <h4>Champloo: A p5.js Collage App</h4>
           <img src="main_art/champloo.gif" alt="Champloo GIF" style="border: none; border-radius: 0;">

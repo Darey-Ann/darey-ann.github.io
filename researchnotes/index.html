@@ -300,8 +300,8 @@
       
       <!--  <h1 style="display: inline;">UNDER CONSTRUCTION...</h1>   -->
 
-      <h1>UNDER CONSTRUCTION <br>(mostly still in my notebooks) ...</h1>
-      <div class="sub"> I wanted to have my own feed that's not on a commercial platform, where I can post my updates, so here we are! 😁 </div>
+      <h1>My Research Notes <br> a.k.a. my online notebook</h1>
+      <div class="sub"> I wanted to have my own feed that's not on a commercial platform, where I can post my updates. So, here we are! 😁 </div>
        
       <div class="tag-row" id="tagRow">LOADING...</div> <!-- UNCOMMENT -- Needed for adding/ fetching posts  -->
     </div>
@@ -402,7 +402,7 @@
         <h3>${escapeHtml(post.title)}</h3>
 
         <p>${post.html ? post.text : escapeHtml(post.text)}</p>
-        ${renderMedia(post.media || [])}
+        ${renderMedia(post.media || [], post.html)}
       </li>
     `).join("");
   
@@ -419,7 +419,11 @@
   /* Mosaic gallery — preserves each item's natural aspect ratio (no cropping),
    packs items into a masonry-style column layout, and collapses to fewer
    columns (then 1, on phones) so nothing gets squeezed too small */
-  function renderMedia(media) {
+
+   /* to make html tags work: html ? item.caption : escapeHtml(item.caption) 
+   meaning: if html is truthy, use item.caption as-is; otherwise, use the escaped version.
+   condition ? valueIfTrue : valueIfFalse */
+  function renderMedia(media, html) {
     if (!media || media.length === 0) return "";
   
     return `
@@ -427,7 +431,7 @@
         ${media.map(item => `
           <div class="media-item">
             ${mediaTag(item)}
-            ${item.caption ? `<div class="media-item-caption">${escapeHtml(item.caption)}</div>` : ""}
+            ${item.caption ? `<div class="media-item-caption">${html ? item.caption : escapeHtml(item.caption)}</div>` : ""} 
           </div>
         `).join("")}
       </div>
