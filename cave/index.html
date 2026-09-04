@@ -101,21 +101,34 @@ button{font:inherit;color:inherit;}
 #now{position:absolute;left:20px;bottom:128px;max-width:min(420px,52vw);
      transition:opacity .3s;}
 #now .n{display:flex;align-items:baseline;gap:11px;}
-#now .letter{font-family:'Fraunces',Georgia,serif;font-size:34px;font-weight:300;
-             color:var(--green);line-height:1;}
-#now .name{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:300;}
+/* No letter any more — the name carries the corner on its own, at the
+   size the letter used to be. The element stays in the markup so nothing
+   has to be removed from 00_body.html; it simply has nothing in it. */
+#now .letter{display:none;}
+#now .name{font-family:'Fraunces',Georgia,serif;font-size:27px;font-weight:300;
+           color:var(--green);line-height:1.1;}
 #now .blurb{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.10em;
             color:var(--dim);margin-top:6px;line-height:1.7;text-transform:lowercase;}
 
-/* the four switches */
-#switch{position:absolute;left:20px;bottom:20px;display:flex;gap:7px;}
-#switch button{width:56px;height:52px;background:rgba(12,14,13,0.6);
+/* The switcher. Named rather than lettered — the label is a property of
+   the configuration, not of where it sits in the running order, so
+   reordering CONFIG_ORDER can never make one wrong. Laid out as one row
+   of chips sized to their own text: the whole strip has to stay about as
+   wide as the eight lettered squares it replaced, because on the two
+   Grown-Path configurations it is drawn over that scene's own wand panel
+   at the bottom of the screen, and a longer strip would run further
+   under it. Hence a small mono face and tight padding rather than
+   anything more generous. */
+#switch{position:absolute;left:20px;bottom:20px;display:flex;gap:5px;
+        max-width:calc(100vw - 40px);flex-wrap:wrap;}
+#switch button{height:34px;padding:0 9px;background:rgba(12,14,13,0.6);
                border:1px solid var(--line);cursor:pointer;display:flex;
-               flex-direction:column;align-items:center;justify-content:center;gap:2px;
+               flex-direction:row;align-items:center;justify-content:center;gap:6px;
                transition:background .18s,border-color .18s,transform .18s;}
-#switch button .l{font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:300;
+#switch button .l{font-family:'Space Mono',monospace;font-size:9px;font-weight:400;
+                  letter-spacing:0.13em;text-transform:uppercase;
                   line-height:1;color:var(--dim);}
-#switch button .k{font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:0.12em;
+#switch button .k{font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:0.10em;
                   color:var(--faint);}
 #switch button:hover{background:rgba(30,34,30,0.75);border-color:rgba(242,239,231,0.38);}
 #switch button.on{border-color:var(--green);background:rgba(40,52,34,0.66);}
@@ -232,11 +245,13 @@ body.touch #keys{display:none;}
    the whole bottom-left stack moves up and the prose gets out of the way. */
 @media (max-width: 720px){
   #now{bottom:auto;top:74px;left:20px;max-width:70vw;}
-  #now .letter{font-size:26px;} #now .name{font-size:16px;}
+  #now .name{font-size:19px;}
   #now .blurb{display:none;}
-  #switch{bottom:16px;left:16px;gap:5px;}
+  #switch{bottom:16px;left:16px;gap:4px;max-width:calc(100vw - 32px);}
   #live{bottom:70px;left:16px;}
-  #switch button{width:46px;height:44px;}
+  #switch button{height:28px;padding:0 7px;gap:4px;}
+  #switch button .l{font-size:8px;letter-spacing:0.08em;}
+  #switch button .k{display:none;}
   body.touch #switch{bottom:16px;}
   body.touch #pad{bottom:74px;}
   #keys{display:none;}
@@ -285,6 +300,7 @@ body.touch #keys{display:none;}
   <div id="keys">
     <b>&uarr; &darr; &larr; &rarr;</b> walk &nbsp;·&nbsp; <b>drag</b> look<br>
     <b>Space</b> back to the middle &nbsp;·&nbsp; <b>[ ]</b> prev / next configuration<br>
+    <b>1</b>&hellip;<b>9</b> jump straight to a configuration<br>
     <b>N</b> notes &nbsp;·&nbsp; <b>R</b> out to the entrance<br>
     <b>M</b> sound &nbsp;·&nbsp; <b>P</b> lighter graphics &nbsp;·&nbsp; <b>F</b> figure<br>
     <b>K</b> ceiling: none / black / neutral &nbsp;·&nbsp; <b>L</b> feed for this condition
@@ -3110,7 +3126,7 @@ requestAnimationFrame(frame);
 
 /* ############################################################################
 
-   THE CAVE — CONFIGURATIONS STUDY — READ ME FIRST
+   THE CAVE — cave_live.html — READ ME FIRST
 
    One file, no libraries, nothing downloaded but three fonts. Assembled
    from the source files in `src/` by `build.py` — edit those and
@@ -3122,18 +3138,22 @@ requestAnimationFrame(frame);
    WHAT IT IS
    ---------------------------------------------------------------------------
    The Fujitsu CAVE — 9 x 6 x 3 m, three walls and a floor, entrance
-   open — showing seven configurations, in the order CONFIG_ORDER names
+   open — showing eight configurations, in the order CONFIG_ORDER names
    in 07_conditions.js:
 
-     A  GROWN PATH    walk around a full-scale sakura living out sixty
-                       years, ceiling hidden for the demo
-     B  ROOTS         the same tree, floor turned to glass
-     C  FOREST        the anchor: familiar, enclosed, shinrin-yoku baseline
-     D  REAL PLANTS   the four-configuration study's live planting,
-                       ported in unchanged
-     E  UNDERWATER    unfamiliar, vast, genuinely inaccessible
-     F  MOUNTAIN      a summit above the cloud sea
-     G  DESERT        the predicted low anchor
+     A  GROWING TREE   walk around a full-scale sakura living out sixty
+                        years, ceiling hidden for the demo
+     B  GROWING ROOTS  the same tree, floor turned to glass
+     C  FOREST         the anchor: familiar, enclosed, shinrin-yoku baseline
+     D  GENERATED      the four-configuration study's planting, ported in
+        PLANTS         unchanged
+     E  UNDERWATER     unfamiliar, vast, genuinely inaccessible
+     F  MOUNTAIN       a summit above the cloud sea
+     G  DESERT         the predicted low anchor
+     H  WALKING TRAIL  a commute compressed into the room's length: you
+                        start indoors, walk, and the room becomes a street
+                        and then the forest. The only condition whose
+                        picture depends on where you are STANDING
 
    This build merges TWO apps that used to be separate files (the five-
    biome room engine and the four-configuration study's real-plants
@@ -3152,8 +3172,10 @@ requestAnimationFrame(frame);
    01_gl.js         Maths and WebGL plumbing.
    02_shaders.js    Every GPU program: the room, shadow depth, THE FOUR
                     BIOMES (forest/underwater/mountain/desert — each
-                    computed per pixel from the sweet spot), projector
-                    beams, post-processing, and the figure silhouette.
+                    computed per pixel from the sweet spot), THE WALKING
+                    TRAIL (interior + street, blended with the forest by
+                    how far along the walk you are), projector beams,
+                    post-processing, and the figure silhouette.
    03_textures.js   Every leaf, frond, pot, bark, ground and wall panel,
                     drawn with 2D canvas commands at startup.
    04_shapes.js     Boxes, planes, cone frusta, swept tubes, leaf cards.
@@ -3163,9 +3185,9 @@ requestAnimationFrame(frame);
                     planting plan, the ground, the boulders and deadwood.
                     Ported in from the four-configuration study unchanged.
    06_room.js       The CAVE itself, plus the 172 cm scale figure.
-   07_conditions.js COND{} (the five room conditions), GROWN{} (the two
+   07_conditions.js COND{} (the six room conditions), GROWN{} (the two
                     Grown-Path configurations' captions), CONFIG_ORDER
-                    (the one list that decides A through G).
+                    (the one list that decides A through H).
    08_render.js     Draws the frame: shadow pass, room pass, the figure,
                     glow, grade.
    09_life.js       Butterflies, small flies, the dust in the beams.
@@ -3178,6 +3200,8 @@ requestAnimationFrame(frame);
    WHERE TO CHANGE THE OBVIOUS THINGS
    ---------------------------------------------------------------------------
      the running order / letters ... CONFIG_ORDER   (07_conditions.js)
+     the walk's two ends ........... TRAIL_A / TRAIL_B (07_conditions.js)
+     the walk's three looks ........ TRAIL_LOOKS     (07_conditions.js)
      room dimensions ............... ROOM            (06_room.js)
      where the projectors hang ..... RIG             (06_room.js)
      which plants stand where ...... PLANT_PLAN      (05b_forest.js)
@@ -3971,7 +3995,13 @@ uniform float u_fade;
 uniform vec3  u_sMin;
 uniform vec3  u_sSize;
 uniform float u_lod;   // 1 = full, 0 = the cheap forest
-uniform float u_biome; // 0 forest, 1 underwater, 2 mountain, 3 desert, 4 night sky
+uniform float u_biome; // 0 forest, 1 underwater, 2 mountain, 3 desert, 4 night sky, 5 walking trail
+/* The walking trail, and the only condition whose picture depends on
+   where the participant is standing rather than only on where they are
+   looking. x = how far along the journey they are (0..1), y = the same
+   thing lagging a second or so behind, z = their x in the room, w = which
+   way they are travelling (+1 toward the far wall). See trail() below. */
+uniform vec4 u_trail;
 
 /* A real feed, when one is connected, replaces the computed forest
    outright. See feedUV() below for how a flat video gets cut up across
@@ -4721,6 +4751,215 @@ vec3 nightsky(vec3 d, float t, int oct, int layers){
   return col;
 }
 
+/* ---------------------------------------------------------------------
+   F — THE WALKING TRAIL
+
+   Idea 03 from the deck: a compressed commute. You start indoors, walk,
+   and the room you are standing in becomes a street, and then a forest.
+
+   The one structural difference from the four biomes above: those are
+   computed from the view direction alone, so they look the same wherever
+   you stand — which is what makes a CAVE's off-axis projection worth
+   having. This one is computed from WHERE YOU ARE as well, because the
+   journey is the whole content. A single "how far along" value drives
+   every surface at once, so nothing of a later stage exists until you
+   have walked far enough to reach it: you cannot see the forest from the
+   doorway, you have to go there. That was the brief.
+
+   The one refinement on top of that: what is BEHIND you runs on a lagged
+   copy of the same value (u_trail.y), so the stage you have just left
+   fades out over a couple of seconds instead of switching the instant you
+   cross a line. Stand still and the lag catches up and the room settles.
+   --------------------------------------------------------------------- */
+
+/* a soft-edged rectangle, for windows, doors and panes */
+float rectM(vec2 q, vec2 c, vec2 h, float soft){
+  vec2 dd = abs(q - c) - h;
+  return 1.0 - smoothstep(-soft, soft, max(dd.x, dd.y));
+}
+
+/* Stage 0 — the room you set out from.
+   Six planes ray-cast per pixel: work out which face this ray lands on,
+   then shade that face. The box is deliberately a little larger than the
+   real CAVE (10 x 7.2 m, 2.7 m to the ceiling) so the depicted room
+   encloses the physical one instead of fighting it, and so the walls you
+   are standing between read as somewhere further off. */
+vec3 trailIndoor(vec3 d, float t, int oct){
+  d = normalize(d);
+  float FLR = -1.62, CEIL = 1.08, HX = 5.0, HZ = 3.6, BIG = 1e6;
+  float tx = (abs(d.x) < 1e-4) ? BIG : ((d.x > 0.0 ? HX : -HX) / d.x);
+  float tz = (abs(d.z) < 1e-4) ? BIG : ((d.z > 0.0 ? HZ : -HZ) / d.z);
+  float ty = (abs(d.y) < 1e-4) ? BIG : ((d.y > 0.0 ? CEIL : FLR) / d.y);
+  float tm = min(min(tx, tz), ty);
+  vec3  p  = d * tm;
+
+  vec3 paint = vec3(0.315, 0.300, 0.276);      // warm off-white under lamplight
+  vec3 col   = paint;
+
+  if(ty <= tx && ty <= tz){
+    if(d.y > 0.0){
+      /* ceiling, with a run of flat panel lights down the long axis */
+      col = vec3(0.330, 0.322, 0.305);
+      float lampx = abs(fract(p.x/3.4 + 0.5) - 0.5) * 3.4;
+      float panel = (1.0 - smoothstep(0.17, 0.33, lampx))
+                  * (1.0 - smoothstep(0.50, 0.78, abs(p.z)));
+      col += vec3(1.15, 1.06, 0.90) * panel * 0.80;
+    } else {
+      /* a wood floor, planks running the length of the room, with the
+         pool of light each ceiling panel drops onto it */
+      float grain = vnoise(vec2(p.x*2.6, p.z*0.55));
+      col = mix(vec3(0.122, 0.082, 0.052), vec3(0.198, 0.142, 0.094), grain);
+      float seam = 1.0 - smoothstep(0.0, 0.022, abs(fract(p.z/0.24) - 0.5)*0.24);
+      col *= 1.0 - seam*0.34;
+      float lampx = abs(fract(p.x/3.4 + 0.5) - 0.5) * 3.4;
+      col *= 0.80 + 0.55*(1.0 - smoothstep(0.0, 2.1, lampx))
+                       *(1.0 - smoothstep(0.0, 2.6, abs(p.z)));
+    }
+  } else if(tx <= tz){
+    /* the two end walls. The one you are walking toward has the way out
+       in it — a door standing ajar on a bright hall, which is both the
+       thing you are heading for and the first hint of the daylight the
+       next stage is made of. */
+    vec2 q = vec2(p.z, p.y);
+    if(d.x > 0.0){
+      float hall = rectM(q, vec2(-0.10, FLR + 1.03), vec2(0.54, 1.03), 0.010);
+      float slab = rectM(q, vec2(-0.30, FLR + 1.02), vec2(0.34, 1.02), 0.008);
+      float trim = rectM(q, vec2(-0.10, FLR + 1.06), vec2(0.60, 1.09), 0.010);
+      col = mix(col, vec3(0.400, 0.384, 0.356), trim);          // architrave
+      col = mix(col, vec3(1.05, 1.02, 0.94)*1.18, hall);        // the hall beyond
+      col = mix(col, vec3(0.352, 0.336, 0.310), slab);          // the door itself
+      col = mix(col, vec3(0.62, 0.56, 0.36),
+                rectM(q, vec2(0.00, FLR + 1.00), vec2(0.022, 0.022), 0.006)); // handle
+    }
+  } else {
+    /* the long walls, and the windows in the far one */
+    vec2 q = vec2(p.x, p.y);
+    if(d.z < 0.0){
+      for(int i = 0; i < 2; i++){
+        float cx = -2.10 + float(i)*2.85;
+        float w  = rectM(q, vec2(cx, FLR + 1.42), vec2(0.66, 0.56), 0.010);
+        float fr = rectM(q, vec2(cx, FLR + 1.42), vec2(0.72, 0.62), 0.010);
+        col = mix(col, vec3(0.392, 0.376, 0.348), fr);
+        /* Daylight, well over white. It is the only cold light in this
+           stage and the only thing in it brighter than the lamps — which
+           is the point: it is where you are about to go. */
+        vec3 day = vec3(1.16, 1.22, 1.30) * 1.18;
+        day *= 1.0 - 0.16*smoothstep(0.0, 1.0, (q.y - FLR - 1.42)*0.8 + 0.5);
+        col = mix(col, day, w);
+        /* mullions */
+        float mull = max(rectM(q, vec2(cx, FLR + 1.42), vec2(0.022, 0.56), 0.004),
+                         rectM(q, vec2(cx, FLR + 1.42), vec2(0.66, 0.020), 0.004));
+        col = mix(col, vec3(0.30, 0.30, 0.31), mull * w);
+      }
+    }
+  }
+
+  /* skirting, on every wall, just above the floor */
+  if(!(ty <= tx && ty <= tz)){
+    col = mix(col, vec3(0.226, 0.216, 0.200),
+              1.0 - smoothstep(FLR + 0.095, FLR + 0.125, p.y));
+  }
+
+  col *= 1.0 / (1.0 + tm*0.040);          // the far end of the room is dimmer
+  col *= vec3(1.06, 1.00, 0.92);          // tungsten
+  return col;
+}
+
+/* Stage 1 — outside, on the pavement.
+   Flat overcast light, a kerb and a road on the open side, a run of
+   facades on the other. Nearest of ground / far facade / facade across
+   the road wins, so a shallow ray meets a building before it meets the
+   pavement, the way it does in life. */
+vec3 trailStreet(vec3 d, float t, int oct){
+  d = normalize(d);
+  float up = clamp(d.y, 0.0, 1.0);
+  /* An overcast lid, and duller than either the room behind or the wood
+     ahead — this stage is the low point of the walk on purpose. */
+  vec3 sky = mix(vec3(0.560, 0.578, 0.610), vec3(0.300, 0.336, 0.400), pow(up, 0.70));
+  vec3 col = sky;
+
+  float GY = -1.58;
+  float tG = (d.y < -1e-4) ? (GY/d.y) : 1e9;
+
+  /* The building line is close — six metres, not nine. A pavement wide
+     enough to be comfortable in a room this size still reads as a plaza
+     rather than a street, and the thing that makes a street is being
+     walled in on both sides. */
+  float tF = 1e9, fCell = 0.0;
+  if(d.z < -1e-4){
+    float tt = -6.0/d.z;
+    vec3 pp = d*tt;
+    fCell = floor(pp.x/6.0);
+    if(pp.y < GY + 7.0 + h11(fCell*3.71)*12.0) tF = tt;
+  }
+  float tN = 1e9, nCell = 0.0;
+  if(d.z > 1e-4){
+    float tt = 12.0/d.z;
+    vec3 pp = d*tt;
+    nCell = floor(pp.x/7.0 + 31.0);
+    if(pp.y < GY + 5.0 + h11(nCell*7.13)*8.0) tN = tt;
+  }
+
+  float tm = min(tG, min(tF, tN));
+  if(tm > 1e8) return col;
+  vec3 p = d*tm;
+
+  if(tm == tG){
+    vec2  gp = p.xz;                 // gp.x runs along the walk, gp.y across it
+    float across = gp.y;
+    vec3 pave = vec3(0.300, 0.297, 0.290) * (0.86 + 0.30*vnoise(gp*1.7));
+    float j1 = 1.0 - smoothstep(0.0, 0.030, abs(fract(gp.x/1.20) - 0.5)*1.20);
+    float j2 = 1.0 - smoothstep(0.0, 0.030, abs(fract(across/1.50) - 0.5)*1.50);
+    pave *= 1.0 - 0.20*max(j1, j2);
+    vec3 road = vec3(0.108, 0.110, 0.118) * (0.86 + 0.30*vnoise(gp*1.25));
+    float dash = step(fract(gp.x/4.20), 0.46)
+               * (1.0 - smoothstep(0.06, 0.13, abs(across - 5.40)));
+    road = mix(road, vec3(0.60, 0.58, 0.50), dash*0.70);
+    col = mix(pave, road, smoothstep(2.02, 2.20, across));
+    col = mix(col, vec3(0.395, 0.392, 0.376),
+              (1.0 - smoothstep(0.0, 0.11, abs(across - 2.06)))*0.65);   // kerb
+    col = mix(col, sky, smoothstep(30.0, 190.0, tm));
+  } else {
+    /* a facade: one flat plane, windows on a grid, hashed per building
+       so no two along the street are the same */
+    float near = (tm == tN) ? 1.0 : 0.0;
+    float cell = mix(fCell, nCell, near);
+    vec3 base = mix(vec3(0.235, 0.222, 0.208), vec3(0.330, 0.300, 0.272),
+                    h11(cell*11.7 + 4.0));
+    base *= mix(1.0, 0.86, near);
+    float wx = 1.0 - smoothstep(0.0, 0.030, abs(fract(p.x/1.85) - 0.5) - 0.24);
+    float wy = 1.0 - smoothstep(0.0, 0.030, abs(fract((p.y - GY)/1.55) - 0.5) - 0.22);
+    float pane = wx*wy;
+    float lit = step(0.72, h11(floor(p.x/1.85)*37.1 + floor((p.y - GY)/1.55)*17.3 + cell));
+    vec3 glass = mix(vec3(0.088, 0.096, 0.110), vec3(0.72, 0.64, 0.46), lit*0.85);
+    col = mix(base, glass, pane);
+    float band = 1.0 - smoothstep(0.0, 0.06, abs(fract((p.y - GY)/1.55) - 0.5) - 0.46);
+    col = mix(col, base*0.82, band*0.5);                                  // floor slabs
+    col = mix(col, sky, smoothstep(16.0, 140.0, tm)*0.86);
+  }
+  return col;
+}
+
+/* The journey itself. s runs 0 at home, 1 on the street, 2 in the forest,
+   with a plateau at each so a stage settles rather than being permanently
+   mid-morph. The early-outs matter: without them every pixel would pay
+   for two stages at once, and one of the two is the forest, which is by
+   far the most expensive thing in this file. */
+vec3 trail(vec3 d, float t, int oct, int layers, float s){
+  if(s <= 0.002) return trailIndoor(d, t, oct);
+  if(s >= 1.998) return forest(d, t, oct, layers);
+  if(s < 1.0){
+    float k = smoothstep(0.0, 1.0, s);
+    if(k < 0.003) return trailIndoor(d, t, oct);
+    if(k > 0.997) return trailStreet(d, t, oct);
+    return mix(trailIndoor(d, t, oct), trailStreet(d, t, oct), k);
+  }
+  float k = smoothstep(0.0, 1.0, s - 1.0);
+  if(k < 0.003) return trailStreet(d, t, oct);
+  if(k > 0.997) return forest(d, t, oct, layers);
+  return mix(trailStreet(d, t, oct), forest(d, t, oct, layers), k);
+}
+
 void main(){
   /* Where this pixel sits on its own surface, 0..1. Two things want it:
      the feed layout above, and the projector's own edge falloff below. */
@@ -4759,7 +4998,19 @@ void main(){
     else if(u_biome < 1.5) c = underwater(d, u_time, oct, layers);
     else if(u_biome < 2.5) c = mountain(d, u_time, oct, layers);
     else if(u_biome < 3.5) c = desert(d, u_time, oct, layers);
-    else                   c = nightsky(d, u_time, oct, layers);
+    else if(u_biome < 4.5) c = nightsky(d, u_time, oct, layers);
+    else {
+      /* The walking trail. Everything on the far side of the participant
+         — the side they are walking toward — runs on the live progress
+         value; everything behind them runs on the lagged one, over a
+         metre and a half of cross-fade so there is no seam at their feet.
+         u_trail.w carries which way they are going, so this still reads
+         correctly when they walk the trail backward. */
+      float ahead = smoothstep(-0.75, 0.75, (v_wpos.x - u_trail.z) * u_trail.w);
+      float pf = mix(u_trail.y, u_trail.x, ahead);
+      float s  = smoothstep(0.22, 0.44, pf) + smoothstep(0.60, 0.82, pf);
+      c = trail(d, u_time, oct, layers, s);
+    }
   }
 
   c *= u_gain;
@@ -7449,10 +7700,21 @@ function buildColliders(planting){
    later.
    ===================================================================== */
 
+/* The two ends of the walking trail, as x in the room. Not symmetric,
+   and not the full 9 m: the walk has to be FINISHED before you run out
+   of room, or the forest only fully arrives with your nose against the
+   far wall, where a projection means nothing and you cannot step back to
+   look at it. So the journey completes at 3.3 and the last metre and a
+   bit is somewhere to stand and be arrived. Declared up here because
+   COND.WALKING_TRAIL below reads them. */
+const TRAIL_A = -3.85;   // the start, where the participant is placed
+const TRAIL_B =  3.30;   // fully arrived
+
 const COND = {
   FOREST: {
     key: 'FOREST',
     name: 'Forest',
+    short: 'forest',
     blurb: 'anchor condition · familiar · enclosed · shinrin-yoku baseline',
     biome: 0,
     plants: null,
@@ -7492,6 +7754,7 @@ const COND = {
   PLANTS: {
     key: 'PLANTS',
     name: 'Generated plants',
+    short: 'generated',
     blurb: 'Stereoscopic projection of a generated forest',
     plants: 'live',
     projection: false,
@@ -7543,6 +7806,7 @@ const COND = {
   WATER: {
     key: 'WATER',
     name: 'Underwater',
+    short: 'water',
     blurb: 'unfamiliar · vast · caustic ceiling, marine snow, shoal at depth',
     biome: 1,
     plants: null,
@@ -7582,6 +7846,7 @@ const COND = {
   MOUNTAIN: {
     key: 'MOUNTAIN',
     name: 'Mountain',
+    short: 'mountain',
     blurb: 'unfamiliar · maximum vastness · above the cloud sea',
     biome: 2,
     plants: null,
@@ -7621,6 +7886,7 @@ const COND = {
   DESERT: {
     key: 'DESERT',
     name: 'Desert',
+    short: 'desert',
     blurb: 'unfamiliar · open · predicted low on both routes',
     biome: 3,
     plants: null,
@@ -7655,14 +7921,117 @@ const COND = {
       ['If it wins anyway',
        'That would be the most interesting outcome in the whole study, and it would mean the two-route model is wrong or incomplete. Write down now what you would conclude, so that if it happens you are testing a prediction rather than explaining a surprise.']
     ]
+  },
+
+  WALKING_TRAIL: {
+    key: 'WALKING_TRAIL',
+    name: 'Walking Trail',
+    short: 'trail',
+    blurb: 'a commute compressed into nine metres · home · street · forest',
+    biome: 5,
+    plants: null,
+    projection: true,
+    /* Projected, but no live-feed slot: a flat shared tab pasted over all
+       four walls is precisely what this condition is built not to be. */
+    feed: false,
+    beams: 0.50,
+    sound: 'indoor',
+    /* Written every frame by 11_main.js from where the participant is
+       standing: p is how far along they are (0..1), lag is the same value
+       a couple of seconds behind (what is drawn BEHIND them), x is their
+       position in the room and dir which way they are walking. This is
+       the only condition whose picture is not a pure function of where
+       you look — see trail() in 02_shaders.js. */
+    trail: { p: 0, lag: 0, x: TRAIL_A, dir: 1 },
+    /* The look blends between the three below rather than being fixed,
+       because the light is half the journey: lamplit, then flat and
+       overcast, then green and dappled. TRAIL_LOOKS holds the ends and
+       11_main.js interpolates them into `look` each frame. */
+    look: null,
+    notes: [
+      ['What it is',
+       'Idea 03 from the deck, built as a walk rather than a view. You start in a lamplit room, walk the length of the CAVE, and the room becomes a street and then the forest — nine metres standing in for the whole journey from a front door to somewhere worth arriving at.'],
+      ['Why it is not just a third biome',
+       'Every other condition here is computed from where you are LOOKING, which is what makes a CAVE’s off-axis projection worth having: the picture holds together from anywhere in the room. This one is computed from where you are STANDING as well. Nothing of a later stage is drawn until you have walked far enough to reach it, so the forest cannot be seen from the doorway — you have to make the journey, which is the claim the condition exists to test.'],
+      ['What it is testing',
+       'Accessibility and achievability, per the deck: whether a short walk that ends in nature moves nature-connectedness more than being placed in the same forest outright. The comparison that matters is against the Forest configuration, which is the same forest with no journey attached — so the difference between Forest and Walking Trail is the value of the walk itself, cleanly separated from the value of the destination.'],
+      ['The honest limitation',
+       'Nine metres is not a commute, and the deck says so: an unrealistically short path to the destination may limit the effect. What this build can vary is the length and pacing of the walk rather than its realism — worth treating the compression as an independent variable rather than a flaw to apologise for.'],
+      ['Controls worth knowing for the demo',
+       'Space returns you to the start of the trail rather than to the middle of the room, so the walk can be re-run as many times as you like. Walking back the way you came rewinds the journey, and whatever is behind you lags a couple of seconds behind — stop walking and the room settles into wherever you are.']
+    ]
   }
 };
+
+/* The three ends the walking trail interpolates between. Only the
+   numbers differ from a normal condition's `look` — same fields, same
+   meanings — so anything that reads a look reads these too. */
+const TRAIL_LOOKS = [
+  { /* 0 — indoors, lamplit */
+    keyDir:   V.norm([0.10, 0.96, 0.16]),
+    keyCol:   [0.150, 0.132, 0.100],
+    fillADir: V.norm([1, 0.15, 0]),
+    fillACol: [0.120, 0.114, 0.104],
+    fillBDir: V.norm([0, 0.10, -1]),
+    fillBCol: [0.148, 0.158, 0.180],
+    ambUp:    [0.105, 0.098, 0.086],
+    ambDn:    [0.088, 0.078, 0.062],
+    hazeCol:  [0.120, 0.112, 0.098],
+    hazeDens: 0.0060,
+    exposure: 1.00,
+    bloom:    0.22,
+    vignette: 0.40,
+    warm:     0.58,
+    wind:     0.0,
+    proj:     { gain: 1.00, black: 1.0, artifact: 1.0 }
+  },
+  { /* 1 — outside, overcast. Flatter and cooler than either end, which
+         is the point: the middle of a commute is the dull part. */
+    keyDir:   V.norm([0.05, 0.98, -0.15]),
+    keyCol:   [0.185, 0.192, 0.208],
+    fillADir: V.norm([0, 0.25, 1]),
+    fillACol: [0.130, 0.140, 0.158],
+    fillBDir: V.norm([0, 0.20, -1]),
+    fillBCol: [0.092, 0.096, 0.106],
+    ambUp:    [0.150, 0.158, 0.176],
+    ambDn:    [0.092, 0.094, 0.100],
+    hazeCol:  [0.180, 0.190, 0.212],
+    hazeDens: 0.0130,
+    exposure: 0.97,
+    bloom:    0.15,
+    vignette: 0.44,
+    warm:     0.02,
+    wind:     0.0,
+    proj:     { gain: 1.04, black: 1.0, artifact: 1.0 }
+  },
+  { /* 2 — arrival. Deliberately identical to condition C's look, so the
+         end of the walk and the forest-without-a-walk are the same
+         place lit the same way, and the only difference between the two
+         conditions is the journey. */
+    keyDir:   V.norm([0.22, 0.95, 0.20]),
+    keyCol:   [0.055, 0.060, 0.050],
+    fillADir: V.norm([0, 0.18, -1]),
+    fillACol: [0.300, 0.400, 0.215],
+    fillBDir: V.norm([0, -1, 0.15]),
+    fillBCol: [0.098, 0.112, 0.070],
+    ambUp:    [0.048, 0.068, 0.052],
+    ambDn:    [0.086, 0.104, 0.068],
+    hazeCol:  [0.050, 0.068, 0.052],
+    hazeDens: 0.0260,
+    exposure: 1.10,
+    bloom:    0.36,
+    vignette: 0.50,
+    warm:     0.0,
+    wind:     0.0,
+    proj:     { gain: 1.00, black: 1.0, artifact: 1.0 }
+  }
+];
 
 /* All five room conditions, in the order the room engine itself thinks
    of them — independent of CONFIG_ORDER below, which is what actually
    decides the on-screen A–G. FEED_ORDER (11_main.js) filters this down
    to the ones that can take a live feed. */
-const COND_ORDER = ['FOREST', 'PLANTS', 'WATER', 'MOUNTAIN', 'DESERT'];
+const COND_ORDER = ['FOREST', 'PLANTS', 'WATER', 'MOUNTAIN', 'DESERT', 'WALKING_TRAIL'];
 
 /* ---------------------------------------------------------------------
    GROWN — the two Grown-Path configurations. Metadata only; the scene
@@ -7676,7 +8045,8 @@ const GROWN = {
   GROWN_PATH: {
     key: 'GROWN_PATH',
     name: 'The Growing Tree',
-    blurb: 'Make a tree’s slow life course from perceptible at human timescale',
+    short: 'tree',
+    blurb: 'Make a tree’s slow life course perceptible at human timescale',
     flag: { xray: false },
     notes: [
       ['What it is',
@@ -7686,12 +8056,13 @@ const GROWN = {
       ['The honest constraint',
        'A mature Somei-Yoshino is 8–12 m; the CAVE is 3 m to the grid. This build shows the tree at its real height, which means it grows up through and past the room’s own ceiling — the constraint is part of the pitch, not hidden from it.'],
       ['Controls worth knowing for the demo',
-       ', and . step the year; drag to hold it playing; 1 / 2 switch preset (first twelve years / the whole sixty); X drops the floor to glass and shows the roots — which is configuration B in this build, opened straight into that state.']
+       ', and . step the year; drag to hold it playing; 1 / 2 switch preset (first twelve years / the whole sixty); X drops the floor to glass and shows the roots — which is the Growing Roots configuration, opened straight into that state.']
     ]
   },
   ROOTS: {
     key: 'ROOTS',
     name: 'The Growing Roots',
+    short: 'roots',
     blurb: 'the same tree’s roots, grown on the same clock.',
     flag: { xray: true },
     notes: [
@@ -7719,7 +8090,8 @@ const GROWN = {
    its id to this array wherever you want it to sit; it will show its
    name and caption and a "not built yet" note instead of a live scene.
    ===================================================================== */
-const CONFIG_ORDER = ['GROWN_PATH', 'ROOTS', 'FOREST', 'PLANTS', 'WATER', 'MOUNTAIN', 'DESERT'];
+const CONFIG_ORDER = ['GROWN_PATH', 'ROOTS', 'WALKING_TRAIL',
+                      'FOREST', 'PLANTS', 'WATER', 'MOUNTAIN', 'DESERT'];
 
 /* Configurations with a name and a place in the running order, but no
    scene behind them yet. Give one a `kind` of 'placeholder' and it
@@ -7976,7 +8348,21 @@ class Renderer {
       gl.uniformMatrix4fv(p.u.u_lightVP, false, this._lvp);
       gl.uniform1f(p.u.u_time, time);
       gl.uniform1f(p.u.u_wind, 0);
-      gl.uniform3fv(p.u.u_sweet, ROOM.sweet);
+      /* Normally the picture is computed from ROOM.sweet — one fixed
+         point, which is exactly what a CAVE without head tracking gives
+         you, and why the corners fold as you walk away from it.
+         The walking trail is the exception, and has to be: it is the one
+         condition where the participant is MEANT to be away from the
+         middle of the room for most of the experience, so computing it
+         from a point they are nowhere near would make the whole walk
+         look broken rather than make a point. So it is computed from
+         where they are standing — which is to say this condition assumes
+         a head-tracked CAVE. That is a real requirement it puts on the
+         hardware, not a cheat: see CONFIGURATIONS-STATE.md. */
+      gl.uniform3fv(p.u.u_sweet,
+        cond.trail ? [cond.trail.x, ROOM.sweet[1], cond.trail.z === undefined
+                                                    ? ROOM.sweet[2] : cond.trail.z]
+                   : ROOM.sweet);
       gl.uniform3fv(p.u.u_camPos, this._cam);
       gl.uniform1f(p.u.u_gain, look.proj.gain);
       gl.uniform1f(p.u.u_black, look.proj.black);
@@ -7984,6 +8370,14 @@ class Renderer {
       gl.uniform1f(p.u.u_lod, this.quality === 1 ? 1 : 0);
       /* which biome this condition computes when no feed is connected */
       gl.uniform1f(p.u.u_biome, cond.biome || 0);
+      /* Where the participant is along the walking trail, and where they
+         were a moment ago. Only the trail reads it; the four biomes are
+         the same picture wherever you stand and ignore it. Kept on the
+         condition itself (11_main.js writes it each frame) so nothing
+         else in the render path has to know this condition exists. */
+      const tr = cond.trail;
+      gl.uniform4f(p.u.u_trail, tr ? tr.p : 0, tr ? tr.lag : 0,
+                                tr ? tr.x : 0, tr ? tr.dir : 1);
       gl.uniform1f(p.u.u_fade, fade);
       gl.uniform1f(p.u.u_useVideo, this.videoLive ? 1 : 0);
       gl.uniform1f(p.u.u_wallTop, scene.canopy ? ROOM.canopy / ROOM.h : 1);
@@ -8390,6 +8784,20 @@ function updateLife(L, t, dt, r){
 
 const EYE = 1.62;
 
+/* How far the view is tipped down at the two places the camera is PUT
+   somewhere rather than driven there: the opening shot and wherever
+   Space returns you to. A level camera at eye height in a 3 m room
+   spends the top of the frame on ceiling and rig, which is not what any
+   of these conditions are about. About seven degrees is enough to get
+   most of that back without reading as looking at your feet.
+
+   Deliberately a tilt and not a lower eye: 1.62 m is tied to the
+   1.60 m sweet spot the projection is computed from and to the 172 cm
+   figure standing on it, and moving the eye would quietly desync all
+   three. The walking trail passes 0 instead — it sets its own framing,
+   and its whole subject is straight ahead of you. */
+const HOME_PITCH = -0.13;
+
 class Player {
   constructor(colliders){
     this.col = colliders;
@@ -8398,7 +8806,7 @@ class Player {
        hole in one side — before they are inside it. */
     this.pos = [0, EYE, 6.2];
     this.yaw = Math.PI;              // facing -z, into the room
-    this.pitch = -0.02;
+    this.pitch = HOME_PITCH;
     this.start = { pos: this.pos.slice(), yaw: this.yaw, pitch: this.pitch };
     this.vel = [0,0];
     this.bob = 0;
@@ -8511,20 +8919,27 @@ class Player {
   /* Walk back to the middle of the room and face the back wall. Timed off
      the wall clock, not off accumulated frame deltas, so it lasts as long
      as it says however the frame rate is doing. */
-  goHome(){
+  /* `to` and `yawTo` default to the middle of the room facing the back
+     wall. The walking trail passes its own: for that condition the useful
+     place to come back to is the START of the walk, facing along it, so
+     the journey can be run again without hunting for the beginning. */
+  goHome(to, yawTo, pitchTo){
     this.vel = [0,0];
     this.keys.clear();
+    const dest = to || [ROOM.home[0], EYE, ROOM.home[2]];
+    const yawT = (yawTo === undefined) ? Math.PI : yawTo;
+    const pitchT = (pitchTo === undefined) ? HOME_PITCH : pitchTo;
     /* Yaw is an angle on a circle, so 350 degrees and 10 degrees are
        twenty apart, not three hundred and forty. Wrapping the difference
        into -180..+180 makes the turn take the short way round. */
-    let d = Math.PI - this.yaw;
+    let d = yawT - this.yaw;
     while(d >  Math.PI) d -= Math.PI*2;
     while(d < -Math.PI) d += Math.PI*2;
     this.glide = {
       from: this.pos.slice(),
-      to: [ROOM.home[0], EYE, ROOM.home[2]],
+      to: [dest[0], EYE, dest[2]],
       yaw0: this.yaw, dYaw: d,
-      pitch0: this.pitch, dPitch: -this.pitch,
+      pitch0: this.pitch, dPitch: pitchT - this.pitch,
       t0: performance.now(), dur: 780
     };
   }
@@ -8671,8 +9086,10 @@ class Player {
        scenes share nothing worth sharing.
 
    CONFIG_ORDER (07_conditions.js) is the single list that decides what
-   letter is what and what order they run in. Everything below reads
-   that list rather than assuming a fixed A–G.
+   order they run in. The switcher shows each configuration's own short
+   name rather than a letter, so reordering that array cannot make a
+   label wrong; only the number-key shortcuts move, and those are read
+   off array position at the moment the buttons are built.
    ===================================================================== */
 
 /* Each room condition's bed, as the four numbers the wind is shaped by.
@@ -8688,7 +9105,15 @@ const BED = {
   water:  { cut: 175, spread: 150, gain: 0.62, birds: false, room: 0.22, fan: 0.42 },
   alpine: { cut: 980, spread: 900, gain: 0.60, birds: false, room: 0.28, fan: 0.50 },
   arid:   { cut: 610, spread: 430, gain: 0.34, birds: false, room: 0.34, fan: 0.48 },
-  room:   { cut: 430, spread: 540, gain: 0.30, birds: false, room: 1.00, fan: 0.10 }
+  room:   { cut: 430, spread: 540, gain: 0.30, birds: false, room: 1.00, fan: 0.10 },
+  /* The two ends of the walking trail that are not already here. Indoors
+     is nearly silent — a building's own hum and not much else. The street
+     is broadband and louder, the noise floor of traffic a block away, and
+     the reason the middle of the walk is the least pleasant part of it to
+     stand in. The far end is `forest`, unchanged, so arriving sounds
+     exactly like condition C. */
+  indoor: { cut: 300, spread: 300, gain: 0.15, birds: false, room: 0.85, fan: 0.30 },
+  street: { cut: 520, spread: 620, gain: 0.55, birds: false, room: 0.26, fan: 0.14 }
 };
 
 const Audio_ = {
@@ -8765,6 +9190,14 @@ const Audio_ = {
   /* Cross-fade the beds. The room never goes fully away — it is a room. */
   setMode(mode, secs){
     this.mode = mode;
+    this.birdMix = (BED[mode] && BED[mode].birds) ? 1 : 0;
+    this.applyBed(BED[mode] || BED.room, secs, mode === 'room' ? 0 : 1);
+  },
+
+  /* The bed as numbers rather than as a name, so the walking trail can
+     hand over a blend of two of them. Everything setMode does, minus
+     choosing which bed. */
+  applyBed(b, secs, forestGain){
     if(!this.ok) return;
     const t = this.ctx.currentTime, d = secs === undefined ? 0.9 : secs;
     const set = (node, v) => {
@@ -8772,8 +9205,7 @@ const Audio_ = {
       node.gain.setValueAtTime(node.gain.value, t);
       node.gain.linearRampToValueAtTime(v, t + d);
     };
-    const b = BED[mode] || BED.room;
-    set(this.gForest, mode === 'room' ? 0 : 1);
+    set(this.gForest, forestGain);
     set(this.gRoom,   b.room);
     set(this.gFan,    b.fan);
     const ramp = (param, v) => {
@@ -8783,6 +9215,27 @@ const Audio_ = {
     };
     if(this.windLP) ramp(this.windLP.frequency, b.cut);
     if(this.windG)  ramp(this.windG.gain,       b.gain);
+  },
+
+  /* Where along the walking trail the ear is. s runs 0..2 like the
+     picture does; the wind bed is interpolated between the two stages it
+     falls between, and the birds fade up over the last stretch rather
+     than switching on at a line. Called a few times a second while
+     walking, not every frame — these are scheduled parameter ramps and
+     there is no point queueing sixty of them a second. */
+  setTrail(s){
+    if(!this.ok) return;
+    const beds = [BED.indoor, BED.street, BED.forest];
+    const i = Math.min(1, Math.floor(s)), k = Math.min(1, Math.max(0, s - i));
+    const a = beds[i], b = beds[i+1];
+    const L = (x, y) => x + (y - x)*k;
+    this.birdMix = (i === 1) ? k*k : 0;
+    this.applyBed({
+      cut:  L(a.cut,  b.cut),
+      gain: L(a.gain, b.gain),
+      room: L(a.room, b.room),
+      fan:  L(a.fan,  b.fan)
+    }, 0.35, 1);
   },
 
   /* The Grown-Path family has its own synthesized sound, running inside
@@ -8818,7 +9271,11 @@ const Audio_ = {
   birdLoop(){
     if(!this.ok) return;
     const b = BED[this.mode] || BED.room;
-    if(b.birds){
+    /* birdMix rather than a flag, so the walking trail can bring the
+       birds up over the last stretch of the walk instead of switching
+       them on the moment the picture crosses into the trees. */
+    const bm = (this.birdMix === undefined) ? (b.birds ? 1 : 0) : this.birdMix;
+    if(bm > 0 && Math.random() < bm){
       const n = 1 + Math.floor(Math.random()*3);
       for(let i=0;i<n;i++){
         setTimeout(()=> this.blip(1500 + Math.random()*2100, 0.07 + Math.random()*0.09,
@@ -8856,9 +9313,117 @@ const Audio_ = {
 };
 
 /* ---- which room conditions can take a live feed ----------------------
-   Only the projected ones — the real-plants condition has no projector
-   running, so there is nothing for a shared tab to land on. */
-const FEED_ORDER = COND_ORDER.filter(k => COND[k].projection);
+   Only the projected ones — the plants condition has no projector
+   running, so there is nothing for a shared tab to land on. The walking
+   trail is projected but excluded too (`feed: false`): a flat video
+   pasted over all four walls is exactly the thing that condition is
+   built to not be, since its whole content is that the picture changes
+   as you cross the room. */
+const FEED_ORDER = COND_ORDER.filter(k => COND[k].projection && COND[k].feed !== false);
+
+/* =====================================================================
+   THE WALKING TRAIL
+
+   All of configuration H's moving parts that are not in the shader. One
+   number does the work: how far along the walk the participant is,
+   0 at the near end of the room and 1 at the far one. From it come the
+   picture (through COND.WALKING_TRAIL.trail, read by 08_render.js), the
+   room's own lighting (by interpolating TRAIL_LOOKS into `look`), and
+   the sound bed.
+
+   `lag` is the same number with a slow follow on it. Because it always
+   trails wherever you came from — walking either way — it is what the
+   shader draws BEHIND you, so a stage you have left fades out over a
+   couple of seconds instead of switching off at a line. Stand still for
+   a moment and it catches up, and the room settles into one place.
+   ===================================================================== */
+const sstep = (a, b, x) => {
+  const t = Math.min(1, Math.max(0, (x - a)/(b - a)));
+  return t*t*(3 - 2*t);
+};
+
+const LOOK_VEC = ['keyDir','keyCol','fillADir','fillACol','fillBDir','fillBCol',
+                  'ambUp','ambDn','hazeCol'];
+const LOOK_NUM = ['hazeDens','exposure','bloom','vignette','warm','wind'];
+
+/* A look is a plain bag of vectors and numbers, so blending two of them
+   is field by field. The three direction fields are re-normalized after:
+   the midpoint of two unit vectors is not a unit vector, and the shading
+   downstream assumes it is. Written into an existing object rather than
+   returning a new one — this runs every frame. */
+function blendLook(dst, A, B, k){
+  const out = dst || { proj: {} };
+  for(const f of LOOK_VEC){
+    const a = A[f], b = B[f];
+    let v = out[f] || (out[f] = [0,0,0]);
+    v[0] = a[0] + (b[0]-a[0])*k;
+    v[1] = a[1] + (b[1]-a[1])*k;
+    v[2] = a[2] + (b[2]-a[2])*k;
+    if(f.endsWith('Dir')){
+      const L = Math.hypot(v[0], v[1], v[2]) || 1;
+      v[0] /= L; v[1] /= L; v[2] /= L;
+    }
+  }
+  for(const f of LOOK_NUM) out[f] = A[f] + (B[f]-A[f])*k;
+  if(!out.proj) out.proj = {};
+  for(const f of ['gain','black','artifact'])
+    out.proj[f] = A.proj[f] + (B.proj[f]-A.proj[f])*k;
+  return out;
+}
+
+const Trail = {
+  START: [TRAIL_A, 0, 0.55],
+  YAW: Math.PI/2,                    // facing +x, along the length of the room
+  p: 0, lag: 0, dir: 1, sndS: -9, sndT: -9,
+  saved: null,        // where the participant stood before the trail moved them
+
+  /* where along the walk a given x in the room is */
+  at(x){ return Math.min(1, Math.max(0, (x - TRAIL_A)/(TRAIL_B - TRAIL_A))); },
+
+  /* 0 indoors, 1 street, 2 forest — with a plateau on each, so a stage
+     settles instead of the room being permanently mid-morph. The two
+     smoothsteps are the same pair the shader uses; if you change one,
+     change the other or the light and the picture disagree. */
+  stage(p){ return sstep(0.22, 0.44, p) + sstep(0.60, 0.82, p); },
+
+  set(x, z){
+    this.p = this.lag = this.at(x);
+    this.dir = 1; this.sndS = -9; this.sndT = -9;
+    this.write(x, z === undefined ? this.START[2] : z);
+  },
+
+  update(dt, x, z, time){
+    this.p = this.at(x);
+    /* first-order follow, about a second and a half of memory */
+    this.lag += (this.p - this.lag) * Math.min(1, dt/1.6);
+    const dv = this.p - this.lag;
+    /* Hold the last direction while standing still rather than letting it
+       drift to zero — with p and lag converged there is nothing to show
+       on either side anyway, and a flip here would swing the whole room
+       around at the moment someone stops walking. */
+    if(Math.abs(dv) > 0.0008) this.dir = dv > 0 ? 1 : -1;
+    this.write(x, z);
+
+    const s = this.stage(this.p);
+    if(Math.abs(s - this.sndS) > 0.02 && time - this.sndT > 0.15){
+      Audio_.setTrail(s);
+      this.sndS = s; this.sndT = time;
+    }
+  },
+
+  write(x, z){
+    const c = COND.WALKING_TRAIL;
+    c.trail.p = this.p; c.trail.lag = this.lag;
+    c.trail.x = x; c.trail.dir = this.dir;
+    if(z !== undefined) c.trail.z = z;
+    const s = this.stage(this.p);
+    const i = Math.min(1, Math.floor(s));
+    c.look = blendLook(c.look, TRAIL_LOOKS[i], TRAIL_LOOKS[i+1],
+                       Math.min(1, Math.max(0, s - i)));
+  }
+};
+/* so `look` is a real look before anything can try to render with it */
+Trail.set(Trail.START[0]);
 
 /* ---- the interface ---------------------------------------------------
    `entry(id)` resolves an id from CONFIG_ORDER to its data, whichever
@@ -8876,6 +9441,17 @@ function letterFor(id){
   return i < 0 ? '?' : String.fromCharCode(65 + i);
 }
 
+/* The switcher shows names rather than letters, so that what is on the
+   button is a property of the configuration and not of where it happens
+   to sit in the running order. Reordering CONFIG_ORDER therefore cannot
+   make a label wrong — only the number-key shortcut moves, and that is
+   computed from position at the moment it is drawn. `short` is on each
+   entry in 07_conditions.js; the full name is the fallback. */
+function shortFor(id){
+  const e = entry(id);
+  return e ? (e.data.short || e.data.name) : id;
+}
+
 const UI = {
   init(onPick, onLive){
     const $ = id => document.getElementById(id);
@@ -8890,7 +9466,7 @@ const UI = {
     FEED_ORDER.forEach(k => {
       const s = document.createElement('span');
       s.className = 'fd';
-      s.innerHTML = '<i></i>' + letterFor(k);
+      s.innerHTML = '<i></i>' + shortFor(k);
       s.title = COND[k].name + ' feed';
       this.el.feedDots.appendChild(s);
     });
@@ -8901,8 +9477,13 @@ const UI = {
     CONFIG_ORDER.forEach((id, i) => {
       const e = entry(id);
       const b = document.createElement('button');
-      b.innerHTML = '<span class="l">'+letterFor(id)+'</span><span class="k">'+(i+1)+'</span>';
-      b.title = e ? e.data.name : id;
+      /* Name only. The number-key shortcut lives in the key legend and
+         in this tooltip rather than on the face of the button: eight
+         names plus eight numbers makes a strip wide enough to run under
+         the Grown-Path scene's own panel, and the names are the half
+         worth having. */
+      b.innerHTML = '<span class="l">'+shortFor(id)+'</span>';
+      b.title = (e ? e.data.name : id) + '  ·  key ' + (i+1);
       b.addEventListener('click', ev => { ev.preventDefault(); onPick(id); });
       this.el.sw.appendChild(b);
     });
@@ -8912,18 +9493,20 @@ const UI = {
 
   paint(id){
     const e = entry(id);
-    const letter = letterFor(id);
-    this.el.letter.textContent = letter;
     this.el.name.textContent = e.data.name;
     this.el.blurb.textContent = e.data.blurb;
     [...this.el.sw.children].forEach((b, i) => {
       b.classList.toggle('on', CONFIG_ORDER[i] === id);
     });
     this.el.noteName.textContent = e.data.name;
-    this.el.noteWho.textContent = 'configuration ' + letter;
+    /* Position rather than a letter, so this line stays true after a
+       reorder without anything having to be rewritten. */
+    this.el.noteWho.textContent = 'configuration ' + (CONFIG_ORDER.indexOf(id) + 1)
+                                + ' of ' + CONFIG_ORDER.length;
     this.el.noteBody.innerHTML = (e.data.notes || [])
       .map(([h, p]) => '<h3>'+h+'</h3><p>'+p+'</p>').join('');
-    this.el.live.classList.toggle('hidden', !(e.kind === 'room' && e.data.projection));
+    this.el.live.classList.toggle('hidden',
+      !(e.kind === 'room' && e.data.projection && e.data.feed !== false));
   },
 
   setFeeds(state, current){
@@ -8954,6 +9537,19 @@ const UI = {
     this.el.sweetNote.textContent = !inside ? 'outside the room'
       : at ? 'the walls read as one continuous view'
            : 'the corners are starting to fold';
+  },
+
+  /* The walking trail replaces that read-out entirely. Distance from the
+     sweet spot is the wrong thing to report for the one condition where
+     being away from it is the entire point — and because that condition
+     tracks the head, the corners are not folding anyway. */
+  postureTrail(p, stage){
+    this.el.posture.textContent = Math.round(p*100) + '% of the way';
+    this.el.posture.className = p > 0.995 ? 'seat' : '';
+    this.el.sweetNote.textContent =
+      stage < 0.5 ? 'indoors · head-tracked, so the walls hold as you move'
+    : stage < 1.5 ? 'on the street'
+                  : (p > 0.995 ? 'arrived' : 'the trees are closing in');
   },
 
   sitPrompt(on){ this.el.sit.classList.toggle('on', on); },
@@ -9052,7 +9648,9 @@ async function boot(){
 
   await say(70, 'hanging six projectors…');
   const life = buildLife(R_.gl, plantAnchors(planting));
-  const scene = { surfaces, shell, beams, planting, life, canopy: 1,
+  /* canopy 0: nothing hung, the rig as it stands. K still cycles
+     0 / black cloth / neutral ceiling. */
+  const scene = { surfaces, shell, beams, planting, life, canopy: 0,
                   figure, showFigure: false };
   const player = new Player(buildColliders(planting));
   player.attach(canvas);
@@ -9159,6 +9757,34 @@ async function boot(){
       if(!fromRoom){ closeGrown(); Audio_.resume(); fade = 0; }
       UI.paint(current);
       setSolids(current);
+      /* The walking trail starts at the start. Placed rather than glided,
+         because this happens behind the dissolve while the room is dark
+         — arriving mid-journey and having to find the beginning would
+         make the one thing this condition is about into a chore. */
+      if(current === 'WALKING_TRAIL'){
+        /* Where they were standing first is put aside and handed back on
+           the way out. Every other condition leaves you exactly where you
+           were when you switched; the trail is the only one that moves
+           you, so it is the only one that owes you a restore. Without
+           this the whole set inherits the trail's start position, off at
+           the side of the room. */
+        if(!Trail.saved){
+          Trail.saved = { pos: player.pos.slice(), yaw: player.yaw, pitch: player.pitch };
+        }
+        player.pos = [Trail.START[0], player.pos[1], Trail.START[2]];
+        player.yaw = Trail.YAW;
+        player.pitch = 0;
+        player.vel = [0,0];
+        player.glide = null;
+        Trail.set(player.pos[0], player.pos[2]);
+      } else if(Trail.saved){
+        player.pos = Trail.saved.pos.slice();
+        player.yaw = Trail.saved.yaw;
+        player.pitch = Trail.saved.pitch;
+        player.vel = [0,0];
+        player.glide = null;
+        Trail.saved = null;
+      }
       Audio_.setMode(COND[current].sound, 1.1);
       syncFeedAudio();
       refreshFeeds();
@@ -9270,6 +9896,11 @@ async function boot(){
   const ACT = {
     home(){
       if(kindOf(current) !== 'room') return;
+      if(current === 'WALKING_TRAIL'){
+        player.goHome(Trail.START, Trail.YAW, 0);
+        UI.toast('back to the start of the walk');
+        return;
+      }
       player.goHome();
       UI.toast('back to starting position');
     },
@@ -9358,6 +9989,10 @@ async function boot(){
 
       updateLife(scene.life, time, dt);
 
+      /* The one condition that has to know where the participant is
+         standing, not only where they are looking. */
+      if(current === 'WALKING_TRAIL') Trail.update(dt, player.pos[0], player.pos[2], time);
+
       R_.updateVideoFrame(window.__feedOverride
                           || (FEED[current] && FEED[current].stream ? FEED[current].video : null));
 
@@ -9368,7 +10003,8 @@ async function boot(){
       const inside = Math.abs(player.pos[0]) < ROOM.hw && player.pos[2] < ROOM.hd
                      && player.pos[2] > -ROOM.hd;
       const off = player.offSweet();
-      UI.posture(off, inside);
+      if(current === 'WALKING_TRAIL') UI.postureTrail(Trail.p, Trail.stage(Trail.p));
+      else UI.posture(off, inside);
       UI.sitPrompt(player.offHome() > 2.5 && cam.speed < 0.05
                    && fade > 0.9 && !player.glide);
     }
